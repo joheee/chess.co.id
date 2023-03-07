@@ -1,0 +1,31 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+* {
+    box-sizing: border-box
+}
+
+#chess-board {
+    display: grid;
+    grid-template-columns: repeat(8,minmax(min-content, max-content))
+}
+
+
+.tile-height-width {
+    height: 5rem;
+    width: 5rem;
+}
+
+img {
+    width: 100%;
+}
+
+.first-tile {
+    background-color: #769656;
+}
+
+.second-tile {
+    background-color: #eeeed2;
+}
