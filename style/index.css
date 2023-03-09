@@ -1,17 +1,24 @@
 body {
     padding: 0px;
     margin: 0px;
+    background-color: #262421;
 }
 
 * {
     box-sizing: border-box
 }
-
-#chess-board {
-    display: grid;
-    grid-template-columns: repeat(8,minmax(min-content, max-content))
+#chess-board-outer {
+    width: fit-content;
+    background-color: #312e2b;
+    padding: .5rem;
+    border-radius: .5rem;
 }
-
+#chess-board {
+    border-radius: .5rem;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: repeat(8,minmax(min-content, max-content));
+}
 
 .tile-height-width {
     height: 5rem;
