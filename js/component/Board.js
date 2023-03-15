@@ -8,11 +8,7 @@ export function Board() {
         for(let j=1;j<=8;j++){
             const boardTile = CreateElement('div')
             boardTile.setAttribute('id', `${i}${j}`)
-            boardTile.setAttribute('class', `${
-                i % 2 === 0 ?
-                j % 2 === 0 ? 'first-tile' : 'second-tile' :
-                j % 2 !== 0 ? 'first-tile' : 'second-tile'
-            } tile-height-width`)
+            boardTile.setAttribute('class', `tile-height-width`)
 
             // INSERT PAWN
             if(i === 7) {
