@@ -45,3 +45,22 @@ const WhitePieces = {
     WhiteQueen : new Queen(false, 14, true, 'wq'),
     WhiteKing : new King(false, 15, true, 'wk'),
 }
+
+const BlackPieces = {
+    BlackPawn_1 : new Pawn(false, 71, false, 'bp-1'),
+    BlackPawn_2 : new Pawn(false, 72, false, 'bp-2'),
+    BlackPawn_3 : new Pawn(false, 73, false, 'bp-3'),
+    BlackPawn_4 : new Pawn(false, 74, false, 'bp-4'),
+    BlackPawn_5 : new Pawn(false, 75, false, 'bp-5'),
+    BlackPawn_6 : new Pawn(false, 76, false, 'bp-6'),
+    BlackPawn_7 : new Pawn(false, 77, false, 'bp-7'),
+    BlackPawn_8 : new Pawn(false, 78, false, 'bp-8'),
+    BlackRook_1 : new Rook(false, 81, false, 'br-1'),
+    BlackRook_2 : new Rook(false, 88, false, 'br-2'),
+    BlackKnight_1 : new Knight(false, 82, false, 'bn-1'),
+    BlackKnight_2 : new Knight(false, 87, false, 'bn-2'),
+    BlackBishop_1 : new Bishop(false, 83, false, 'bb-1'),
+    BlackBishop_2 : new Bishop(false, 86, false, 'bb-2'),
+    BlackQueen : new Queen(false, 84, false, 'bq'),
+    BlackKing : new King(false, 85, false, 'bk'),
+}
