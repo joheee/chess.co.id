@@ -1,5 +1,6 @@
 import { Board } from "./component/Board.js"
 import { IntializeBoardColor } from "./component/InitColor.js"
+import { Player } from "./component/Player.js"
 import { GetElement } from "./config/Element.js"
 import { Index } from "./logic/Control.js"
 import { Bishop } from "./model/Bishop.js"
@@ -21,6 +22,9 @@ boardTiles.forEach(row => {
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()
 console.log(Tiles[Index(1)][Index(1)])
+
+// DISPLAY RANDOM PLAYER NAME
+Player.DisplayPlayerName()
 
 // INITIALIZE PAWN
 export const WhitePieces = {

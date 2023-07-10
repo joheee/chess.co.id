@@ -10,11 +10,14 @@
     <link rel="stylesheet" href="style/chess-board.css">
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/player.css">
+    <link rel="stylesheet" href="style/topbar.css">
 </head>
 <body>
     
     <div id="top-bar">
-        this is top bar
+        <div class="button">login</div>
+        <div class="button">new game</div>
+        <div class="button">resign</div>
     </div>
 
     <div id="chess-board-outer">
@@ -22,7 +25,7 @@
         <div id="black-player" class="player">
             <div class="left-side">
                 <img class="image-container" src="assets/black-player.jpg" alt="black player profile">
-                <div class="player-name">
+                <div class="player-name" id="black-name">
                     black player
                 </div>
             </div>
@@ -39,7 +42,7 @@
         <div id="white-player" class="player">
             <div class="left-side">
                 <img class="image-container" src="assets/white-player.jpeg" alt="black player profile">
-                <div class="player-name">
+                <div class="player-name" id="white-name">
                     white player
                 </div>
             </div>

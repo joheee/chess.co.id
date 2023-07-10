@@ -1,0 +1,15 @@
+#top-bar {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap:.5rem;
+}
+
+.button {
+    text-align: center;
+    cursor: pointer;
+    border-radius: .5rem;
+}
+
+.button:hover {
+    background-color: rgba(255, 255, 255, .2);
+}
