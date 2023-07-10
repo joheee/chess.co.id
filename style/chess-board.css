@@ -2,17 +2,32 @@ body {
     padding: 0px;
     margin: 0px;
     background-color: #262421;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    gap: .5rem;
+    padding: .5rem;
 }
 
 * {
-    box-sizing: border-box
+    box-sizing: border-box;
 }
+
+#top-bar {
+    background-color: #312e2b;
+    color: white;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
 #chess-board-outer {
     width: fit-content;
     background-color: #312e2b;
     padding: .5rem;
     border-radius: .5rem;
 }
+
 #chess-board {
     border-radius: .5rem;
     overflow: hidden;
@@ -20,10 +35,26 @@ body {
     grid-template-columns: repeat(8,minmax(min-content, max-content));
 }
 
+#top-bar {
+    width: 40rem;
+}
+
 .tile-height-width {
     height: 5rem;
     width: 5rem;
 }
+
+@media screen and (max-width: 750px) {
+    #top-bar {
+        width: clamp(10rem, 96vw, 40rem);
+    }
+    
+    .tile-height-width {
+        height: clamp(1rem, 11.5vw, 5rem);
+        width: clamp(1rem, 11.5vw, 5rem);
+    }
+}
+  
 
 img {
     width: 100%;
