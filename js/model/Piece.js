@@ -18,19 +18,22 @@ export class Piece {
         if(!this.isClicked && !Variable.isClickedPiece) {
             parentElement.style.backgroundColor = Variable.clickedTile
             this.isClicked = true
+
             Variable.isClickedPiece = true
+            Variable.currentElement = this
+            return true
         } else if(this.isClicked && Variable.isClickedPiece) {
             parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id)
             this.isClicked = false
+
             Variable.isClickedPiece = false
+            Variable.currentElement = null
         }
+        return false
     }
-    
+
     MovementListener = () => {
         document.getElementById(this.elementId).addEventListener('click', this.MovementMechanism)
-        document.getElementById(this.elementId).addEventListener('dragstart', () => {
-            console.log(this)
-        })
     }
     
     MovementMechanism = () => {}

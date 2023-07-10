@@ -20,7 +20,7 @@ boardTiles.forEach(row => {
 
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()
-// console.log(Tiles[Index(1)][Index(1)])
+console.log(Tiles[Index(1)][Index(1)])
 
 // INITIALIZE PAWN
 export const WhitePieces = {

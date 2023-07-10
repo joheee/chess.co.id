@@ -1,3 +1,5 @@
+import { Variable } from "../config/Variable.js"
+import { TileController } from "../controller/TileController.js"
 import { Tile } from "../model/Tile.js"
 
 export function IntializeBoardColor() {
@@ -7,6 +9,7 @@ export function IntializeBoardColor() {
         for(let j=1;j<=8;j++){
             let tile = new Tile(`${i}${j}`)
             tile.DefaultBackground()
+            TileController.TileEventListener(tile.tilePosition)
             row.push(tile)
         }
         Tiles.push(row)
