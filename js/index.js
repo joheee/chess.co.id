@@ -18,12 +18,12 @@ boardTiles.forEach(row => {
     })
 })
 
-
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()
-console.log(Tiles[Index(1)][Index(1)])
+// console.log(Tiles[Index(1)][Index(1)])
 
-const WhitePieces = {
+// INITIALIZE PAWN
+export const WhitePieces = {
     WhitePawn_1 : new Pawn(false, 21, true, 'wp-1'),
     WhitePawn_2 : new Pawn(false, 22, true, 'wp-2'),
     WhitePawn_3 : new Pawn(false, 23, true, 'wp-3'),
@@ -46,7 +46,7 @@ const WhitePieces = {
     WhiteKing : new King(false, 15, true, 'wk'),
 }
 
-const BlackPieces = {
+export const BlackPieces = {
     BlackPawn_1 : new Pawn(false, 71, false, 'bp-1'),
     BlackPawn_2 : new Pawn(false, 72, false, 'bp-2'),
     BlackPawn_3 : new Pawn(false, 73, false, 'bp-3'),

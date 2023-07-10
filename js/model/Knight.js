@@ -7,6 +7,7 @@ export class Knight extends Piece {
         this.MovementListener()
     }
     MovementMechanism = () => {
-        console.log(this.pawnValue)
+        console.log(this)
+
     }
-}
+}   
