@@ -13,7 +13,7 @@ export class Pawn extends Piece {
         if (this.ClickedPiece()) {
             console.log(this)
         } else {
-            console.log('gaboleh')
+            console.log('This piece is not selected')
         }
     }
 }

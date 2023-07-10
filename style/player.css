@@ -1,0 +1,42 @@
+.player {
+    color: white;
+    font-weight: bold;
+}
+
+.image-container {
+    width: 2rem;
+}
+
+.player-name {
+    font-size: .8rem;
+}
+
+.left-side {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+
+.right-side {
+    background-color: white;
+    border-radius: .2rem;
+    padding: .2rem .2rem .2rem 3rem;
+}
+
+.clock-container {
+    color: #262421;
+}
+
+.player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#black-player {
+    margin-bottom: .5rem;
+}
+
+#white-player {
+    margin-top: .5rem;
+}

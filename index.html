@@ -8,14 +8,44 @@
     <link rel="shortcut icon" sizes="180x180" href="assets/favicon.ico" type="image/x-icon">
     <script src="js/index.js" type="module"></script>
     <link rel="stylesheet" href="style/chess-board.css">
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/player.css">
 </head>
 <body>
     
-    <!-- chess board rendering -->
     <div id="chess-board-outer">
+
+        <div id="black-player" class="player">
+            <div class="left-side">
+                <img class="image-container" src="assets/black-player.jpg" alt="black player profile">
+                <div class="player-name">
+                    black player
+                </div>
+            </div>
+
+            <div class="right-side">
+                <div class="clock-container" id="black-clock">
+                    2:59
+                </div>
+            </div>
+        </div>
 
         <div id="chess-board"></div>
 
+        <div id="white-player" class="player">
+            <div class="left-side">
+                <img class="image-container" src="assets/white-player.jpeg" alt="black player profile">
+                <div class="player-name">
+                    white player
+                </div>
+            </div>
+
+            <div class="right-side">
+                <div class="clock-container" id="white-clock">
+                    2:59
+                </div>
+            </div>
+        </div>
 
     </div>
 
