@@ -55,6 +55,7 @@ export class Navigation {
             // all validation passed
             let local = new LocalStorage()
             console.log(local.GetAuthUser(email,password))
+            local.StoreSessionUser(email)
             location.reload()
         }) 
     }
@@ -111,6 +112,7 @@ export class Navigation {
             // all validation passed
             let local = new LocalStorage()
             local.StoreUser(email,password)
+            local.StoreSessionUser(email)
             location.reload()
         }) 
     }

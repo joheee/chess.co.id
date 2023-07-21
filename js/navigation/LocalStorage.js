@@ -1,12 +1,22 @@
 export class LocalStorage{
     constructor(){
         this.UserKey = 'USER'
+        this.SessionKey = 'SESSION'
     }
 
     GetAllUser(){
         return JSON.parse(localStorage.getItem(this.UserKey))
     }
-
+    
+    GetUsernameFromEmail(email) {
+        const atIndex = email.indexOf('@');
+        if (atIndex !== -1) {
+          return email.slice(0, atIndex);
+        } else {
+          return null; // or any other error handling as needed
+        }
+    }
+      
     GetSpecificUser(email) {
         let allUser = this.GetAllUser()
         if(allUser === null) return undefined
@@ -30,5 +40,13 @@ export class LocalStorage{
         arr = arr === null ? [] : arr
         arr.push(newUser)
         localStorage.setItem(this.UserKey, JSON.stringify(arr))
+    }
+
+    StoreSessionUser(email) {
+        let sesUser = {
+            email: email,
+            username: this.GetUsernameFromEmail(email)
+        }
+        localStorage.setItem(this.SessionKey, JSON.stringify(sesUser))
     }
 }
