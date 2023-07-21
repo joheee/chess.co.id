@@ -64,7 +64,7 @@ position: fixed;
 }
 
 #new-modal {
-    /* display: none; */
+    display: none; 
 }
 
 #time-dropdown-container {
