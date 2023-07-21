@@ -52,7 +52,6 @@ export class Navigation {
         document.getElementById('time-dropdown').addEventListener('click', () => {
             let drop = document.getElementById('time-dropdown-container')
             const computedStyle = window.getComputedStyle(drop)
-            console.log(computedStyle.getPropertyValue('display'))
             if(computedStyle.getPropertyValue('display') == 'none') {
                 drop.style.display = 'grid'
             }
@@ -74,6 +73,7 @@ export class Navigation {
             let modal = document.getElementById('new-modal')
             modal.style.display = 'none'
             this.HideError()
+            location.reload()
         }) 
     }
 
@@ -105,7 +105,6 @@ export class Navigation {
             register.style.display = 'none'
             tobBar.style.gridTemplateColumns = "auto auto";
         }
-
     }
 
     HandleLoginButton(){

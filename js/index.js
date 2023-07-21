@@ -81,3 +81,9 @@ whiteClock.DisplayClock(true, 'white-clock')
 
 let blackClock = new Time()
 blackClock.DisplayClock(true, 'black-clock')
+
+function test() {
+    blackClock.DisplayClock(false, 'black-clock')
+}
+
+setTimeout(test, 10000)
