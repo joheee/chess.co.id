@@ -1,7 +1,7 @@
 .modal-outer {
-    width: 100vw;
-    height: 100vh;
-    position: fixed;
+width: 100vw;
+height: 100vh;
+position: fixed;
     background-color: rgba(0, 0, 0, 0.5);
     top: 0;
     left: 0;
@@ -15,6 +15,7 @@
 .logo-inner {
     max-width: 20rem;
     margin-bottom: 2rem;
+    cursor: pointer;
 }
 
 .modal-inner {
@@ -38,5 +39,9 @@
 }
 
 #login-modal {
+    /* display: none; */
+}
+
+#register-modal {
     display: none;
 }
