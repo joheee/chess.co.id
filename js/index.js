@@ -2,7 +2,8 @@ import { Board } from "./component/Board.js"
 import { IntializeBoardColor } from "./component/InitColor.js"
 import { Player } from "./component/Player.js"
 import { GetElement } from "./config/Element.js"
-import { Index, Time } from "./logic/Control.js"
+import { Index } from "./logic/Control.js"
+import { Time } from "./logic/Time.js"
 import { Bishop } from "./model/Bishop.js"
 import { King } from "./model/King.js"
 import { Knight } from "./model/Knight.js"
@@ -77,3 +78,6 @@ export const BlackPieces = {
 // INITIALIZE CLOCK
 let whiteClock = new Time()
 whiteClock.DisplayClock(true, 'white-clock')
+
+let blackClock = new Time()
+blackClock.DisplayClock(true, 'black-clock')
