@@ -9,6 +9,7 @@ import { Knight } from "./model/Knight.js"
 import { Pawn } from "./model/Pawn.js"
 import { Queen } from "./model/Queen.js"
 import { Rook } from "./model/Rook.js"
+import { LocalStorage } from "./navigation/LocalStorage.js"
 import { Navigation } from "./navigation/Navigation.js"
 
 // INITIALIZE BOARD AND PIECES
@@ -25,7 +26,7 @@ const navigation = new Navigation()
 
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()
-console.log(Tiles[Index(1)][Index(1)])
+// console.log(Tiles[Index(1)][Index(1)])
 
 // DISPLAY RANDOM PLAYER NAME
 Player.DisplayPlayerName()

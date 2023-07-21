@@ -2,6 +2,19 @@ export class LocalStorage{
     constructor(){
         this.UserKey = 'USER'
         this.SessionKey = 'SESSION'
+        this.TimeKey = 'TIME'
+    }
+
+    SetTime(time){
+        localStorage.setItem(this.TimeKey, time)
+    }
+
+    GetTime(){
+        return localStorage.getItem(this.TimeKey)
+    }
+
+    LogoutUser(){
+        localStorage.removeItem(this.SessionKey)
     }
 
     GetAllUser(){
@@ -40,6 +53,12 @@ export class LocalStorage{
         arr = arr === null ? [] : arr
         arr.push(newUser)
         localStorage.setItem(this.UserKey, JSON.stringify(arr))
+    }
+
+    GetSessionUser() {
+        let user = localStorage.getItem(this.SessionKey)
+        if(user === null) return undefined
+        return user
     }
 
     StoreSessionUser(email) {

@@ -13,6 +13,9 @@ export class Variable {
     static currentElement = null
     static parentElement = null
 
+    // TIME
+    static timePlayed = 0
+
     static ResetState(){
         this.isClickedPiece = false
         this.tilePosition = -23

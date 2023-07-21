@@ -1,3 +1,4 @@
+import { Variable } from "../config/Variable.js";
 import { FormValidation } from "./FormValidation.js";
 import { LocalStorage } from "./LocalStorage.js";
 
@@ -9,6 +10,9 @@ export class Navigation {
     HandleButton(){
         this.HandleLoginButton()      
         this.HandleRegisterButton()  
+        this.HandleSessionUser()
+        this.HandleLogoutUser()
+        this.HandleNewGame()
     }
 
     ShowError(message){
@@ -24,6 +28,84 @@ export class Navigation {
             errorMessage.style.display = 'none';
         }, 300);
         errorMessage.style.display = 'none'
+    }
+
+    HandleNewGame() {
+        let local = new LocalStorage()
+        if(local.GetTime() === null) {
+            Variable.timePlayed = 5
+            console.log(Variable.timePlayed)
+            local.SetTime(Variable.timePlayed)
+        }
+
+        document.getElementById('time-dropdown').innerHTML = `${local.GetTime()} min`
+
+        document.getElementById('new-button').addEventListener('click', () => {
+            let modal = document.getElementById('new-modal')
+            modal.style.display = 'flex'
+        })
+        document.getElementById('exit-new-button').addEventListener('click', () => {
+            let modal = document.getElementById('new-modal')
+            modal.style.display = 'none'
+            this.HideError()
+        })
+        document.getElementById('time-dropdown').addEventListener('click', () => {
+            let drop = document.getElementById('time-dropdown-container')
+            const computedStyle = window.getComputedStyle(drop)
+            console.log(computedStyle.getPropertyValue('display'))
+            if(computedStyle.getPropertyValue('display') == 'none') {
+                drop.style.display = 'grid'
+            }
+            else{ 
+                drop.style.display = 'none'
+            }
+        })       
+        for(let i=0;i<30;i+=5){
+            let minute = i === 0 ? 1 : i
+            let key = `${minute}-min`
+            let text = `${minute} min`
+            document.getElementById(key).addEventListener('click', () => {
+                document.getElementById('time-dropdown').innerHTML = text
+                Variable.timePlayed = minute
+            })
+        }        
+        document.getElementById('play').addEventListener('click', () => {
+            local.SetTime(Variable.timePlayed)
+            let modal = document.getElementById('new-modal')
+            modal.style.display = 'none'
+            this.HideError()
+        }) 
+    }
+
+    HandleLogoutUser(){
+        let logout = document.getElementById('logout-button')
+        logout.addEventListener('click',() => {
+            const local = new LocalStorage()
+            local.LogoutUser()
+            location.reload()
+        })
+    }
+
+    HandleSessionUser(){
+        // GET SESSION USER
+        const local = new LocalStorage()
+        let user = local.GetSessionUser()
+
+        let login = document.getElementById('login-button')
+        let register = document.getElementById('register-button')
+        let logout = document.getElementById('logout-button')
+        
+        let tobBar = document.getElementById('top-bar')        
+
+        if(user === undefined) {
+            logout.style.display = 'none'
+            tobBar.style.gridTemplateColumns = "auto auto auto";
+        }else {
+            login.style.display = 'none'
+            register.style.display = 'none'
+            tobBar.style.gridTemplateColumns = "auto auto";
+        }
+
     }
 
     HandleLoginButton(){
