@@ -9,6 +9,7 @@ import { Knight } from "./model/Knight.js"
 import { Pawn } from "./model/Pawn.js"
 import { Queen } from "./model/Queen.js"
 import { Rook } from "./model/Rook.js"
+import { Navigation } from "./navigation/Navigation.js"
 
 // INITIALIZE BOARD AND PIECES
 const chessBoard = GetElement('id', 'chess-board')
@@ -18,6 +19,9 @@ boardTiles.forEach(row => {
         chessBoard.appendChild(tile)
     })
 })
+
+// INITIALIZE NAVIGATION
+const navigation = new Navigation()
 
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()

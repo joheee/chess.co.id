@@ -11,13 +11,18 @@
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/player.css">
     <link rel="stylesheet" href="style/topbar.css">
+    <link rel="stylesheet" href="style/form.css">
+    <link rel="stylesheet" href="style/modal.css">
+
+    
+    <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 </head>
 <body>
     
     <div id="top-bar">
-        <div class="button">login</div>
-        <div class="button">new game</div>
-        <div class="button">resign</div>
+        <div class="button" id="login-button">login</div>
+        <div class="button" id="new-button">new game</div>
+        <div class="button" id="resign-button">resign</div>
     </div>
 
     <div id="chess-board-outer">
@@ -55,6 +60,29 @@
         </div>
 
     </div>
+
+    <div class="modal-outer" id="login-modal">
+        <img src="assets/logo-inner.svg" class="logo-inner" id="exit-button">
+        <div class="login-form-wrapper modal-inner" >
+            <div class="authentication-login-form login-form">
+
+                <div class="ui_v5-input-group-component">
+                    <input type="email" id="username" name="_username" required="required" form-error-clear="" class="ui_v5-input-component ui_v5-input-group-space-left login-input" placeholder="Username or Email" autofocus="" aria-label="Username or Email" autocomplete="email">
+                </div>
+
+                <div class="ui_v5-input-group-component">
+                    <input type="password" id="password" name="_password" required="required" form-error-clear="" class="ui_v5-input-component ui_v5-input-group-space-left ui_v5-input-group-space-right login-input" placeholder="Password" aria-label="Password" autocomplete="current-password">
+                </div>
+
+
+                <button type="submit" id="login" name="login" theme="primary" size="large" class="login-space-top-large ui_v5-button-component ui_v5-button-primary ui_v5-button-large" data-no-controls="true">Log In</button>
+
+                <input type="hidden" id="_target_path" name="_target_path" form-error-clear="" value="https://www.chess.com/home"><input type="hidden" id="_token" name="_token" form-error-clear="" value="f30f2e2b1ab771d8d.cDR09Cv-54sZtRBcjGaKuSn03f9Q8WX7cDps18ba2Q4.PnwNwnqIk9tu4iQMxzne70-Y6bQFogTMOg0_mIiYl34GBkeVScut2HX-XQ"></form>
+
+            </div>
+        </div>
+    </div>
+
 
 </body>
 </html>

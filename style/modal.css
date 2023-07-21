@@ -1,0 +1,42 @@
+.modal-outer {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-inner {
+    max-width: 20rem;
+    margin-bottom: 2rem;
+}
+
+.modal-inner {
+    background-color: #262421;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.authentication-login-form {
+    margin: 0px;
+}
+
+.login-space-top-large {
+    margin: 0px;
+}
+
+.ui_v5-input-group-component {
+    background-color: hsla(0,0%,100%,.1);
+    border: 0.1rem solid hsla(0,0%,100%,.1);
+    border-radius: 0.3rem;
+}
+
+#login-modal {
+    display: none;
+}

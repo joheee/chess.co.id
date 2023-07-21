@@ -1,13 +1,15 @@
 #top-bar {
-    display: grid;
+    display: grid;  
     grid-template-columns: auto auto auto;
     gap:.5rem;
+    margin: 2rem;
 }
 
 .button {
     text-align: center;
     cursor: pointer;
     border-radius: .5rem;
+    padding: 1rem 0;
 }
 
 .button:hover {
