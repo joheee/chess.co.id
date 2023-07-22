@@ -32,10 +32,15 @@ export class Navigation {
 
     HandleNewGame() {
         let local = new LocalStorage()
-        if(local.GetTime() === null) {
+
+        if(local.GetTime() === null || local.GetTime() === 0) {
             Variable.timePlayed = 5
             console.log(Variable.timePlayed)
             local.SetTime(Variable.timePlayed)
+        }
+
+        if(Variable.timePlayed === 0 && local.GetTime() !== null) {
+            Variable.timePlayed = local.GetTime()
         }
 
         document.getElementById('time-dropdown').innerHTML = `${local.GetTime()} min`
@@ -73,6 +78,7 @@ export class Navigation {
                 this.ShowError('choose your playing time!')
                 return
             }
+
             this.HideError()
             local.SetTime(Variable.timePlayed)
             let modal = document.getElementById('new-modal')
