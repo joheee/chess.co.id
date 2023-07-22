@@ -1,32 +1,42 @@
 import { LocalStorage } from "../navigation/LocalStorage.js"
 
 export class Time {
-    constructor() {
+    constructor(id) {
         let local = new LocalStorage()
         this.time = local.GetTime()
         this.countdownInterval = null
         this.countdownActive = false
+        this.timeRemaining  = 0
+        this.id = id        
     }
 
-    DisplayClock(isStart, id) {
-        let time = this.time
-        let clock = document.getElementById(id)
-        clock.innerHTML = `${time}:00`
-
-        if(isStart) this.startCountdown(id)
-        else this.stopCountdown()
+    DisplayClock() {
+        let time = this.time < 10 ? `0${this.time}` : this.time
+        let clock = document.getElementById(this.id)
+        clock.textContent = `${time}:00`
+    }
+    
+    ClockMechanism(isStart) {
+        if(isStart) {
+            this.startCountdown(this.id)
+        }
+        else {
+            this.startCountdown(this.id)
+            this.stopCountdown(this.id)
+        }
     }
 
-    startCountdown(id) {
+    startCountdown() {
         if (!this.countdownActive) {
             this.countdownActive = true;
-            const countdownElement = document.getElementById(id);
-            let timeRemaining = this.convertTimeToSeconds(countdownElement.textContent);
+            const countdownElement = document.getElementById(this.id);
+            this.timeRemaining = this.convertTimeToSeconds(countdownElement.textContent);
         
             this.countdownInterval = setInterval(() => {
-                if (timeRemaining > 0) {
-                    timeRemaining--;
-                    const formattedTime = this.formatTimeFromSeconds(timeRemaining);
+                if (this.timeRemaining > 0) {
+                    this.timeRemaining--;
+                    this.lastTime = this.timeRemaining
+                    const formattedTime = this.formatTimeFromSeconds(this.timeRemaining);
                     countdownElement.textContent = formattedTime;
                 } else {
                     clearInterval(this.countdownInterval);
@@ -35,11 +45,16 @@ export class Time {
             }, 1000);
         }
     }
-      
+    
     stopCountdown() {
         clearInterval(this.countdownInterval);
         this.countdownActive = false;
-    }
+      
+        // Update the displayed time with the last time
+        const countdownElement = document.getElementById(this.id);
+        const formattedTime = this.formatTimeFromSeconds(this.timeRemaining);
+        countdownElement.textContent = formattedTime;
+      }
       
     convertTimeToSeconds(timeString) {
         const [minutes, seconds] = timeString.split(":").map(Number);

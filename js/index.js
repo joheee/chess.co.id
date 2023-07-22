@@ -12,6 +12,7 @@ import { Queen } from "./model/Queen.js"
 import { Rook } from "./model/Rook.js"
 import { LocalStorage } from "./navigation/LocalStorage.js"
 import { Navigation } from "./navigation/Navigation.js"
+import { Variable } from './config/Variable.js'
 
 // INITIALIZE BOARD AND PIECES
 const chessBoard = GetElement('id', 'chess-board')
@@ -76,14 +77,7 @@ export const BlackPieces = {
 }
 
 // INITIALIZE CLOCK
-let whiteClock = new Time()
-whiteClock.DisplayClock(true, 'white-clock')
-
-let blackClock = new Time()
-blackClock.DisplayClock(true, 'black-clock')
-
-function test() {
-    blackClock.DisplayClock(false, 'black-clock')
-}
-
-setTimeout(test, 10000)
+let whiteClock = new Time('white-clock')
+let blackClock = new Time('black-clock')
+whiteClock.DisplayClock()
+blackClock.DisplayClock()

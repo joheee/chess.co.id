@@ -69,6 +69,11 @@ export class Navigation {
             })
         }        
         document.getElementById('play').addEventListener('click', () => {
+            if(Variable.timePlayed === 0) {
+                this.ShowError('choose your playing time!')
+                return
+            }
+            this.HideError()
             local.SetTime(Variable.timePlayed)
             let modal = document.getElementById('new-modal')
             modal.style.display = 'none'
