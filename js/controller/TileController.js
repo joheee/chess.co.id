@@ -22,8 +22,8 @@ export class TileController {
 
     static IsTileHaveChildren(tilePosition) {
         let tileElement = document.getElementById(tilePosition)
-        let hintMovementElements = tileElement.querySelectorAll('.hint-movement')
         let childElements = tileElement.children
+        if(childElements === null) return false
         if(tileElement.hasChildNodes()) {
             for (let i = 0; i < childElements.length; i++) {
                 // child that doesnt have class hint-movement

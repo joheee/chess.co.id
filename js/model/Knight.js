@@ -1,3 +1,4 @@
+
 import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
 import { Piece } from "./Piece.js";
@@ -15,47 +16,85 @@ export class Knight extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
 
-        // white validation 
-        let x = xDest - xSrc
-        let y = yDest - ySrc
+        // Calculate the absolute differences in x and y coordinates
+        const deltaX = Math.abs(xDest - xSrc)
+        const deltaY = Math.abs(yDest - ySrc)
 
-        // top side
-        let TopLeftMoves = x === -1 && y === 2
-        let TopBottomMoves = x === 1 && y === 2
-        
-        // left side
-        let LeftTopMoves = x === -2 && y === 1
-        let LeftBottomMoves = x === -2 && y === -1
+        // Knight's L-shaped move: 2 steps in one direction and 1 step in a perpendicular direction
+        const isValidMove =
+        (deltaX === 1 && deltaY === 2) ||
+        (deltaX === 2 && deltaY === 1)
 
-        // right side
-        let RightTopMoves = x === 2 && y === 1
-        let RightBottomMoves = x === 2 && y === -1
-
-        // bottom side
-        let BottomLeftMoves = x === -1 && y === -2
-        let BottomRightMovex = x === 1 && y === -2
-
-        // valid moves validation in L shape
-        if(
-            !LeftTopMoves && 
-            !LeftBottomMoves && 
-            !TopLeftMoves && 
-            !TopBottomMoves &&
-            !RightTopMoves &&
-            !RightBottomMoves &&
-            !BottomLeftMoves &&
-            !BottomRightMovex
-        ) return false
+        if(!isValidMove) return false
 
         // capture piece for white
         return PieceController.CapturePieceMechanism(this, dest)
     }
 
+    HorseGrid (tile, isWhite) {
+
+        let x = tile % 10
+        let y = (tile - x) / 10     
+        if(x < 1 || x > 8 || y < 1 || y > 8) return
+
+        if(TileController.IsTileHaveChildren(tile)) {
+            let item = GetKeyPieces(TileController.GetChildrenElement(tile).id)
+            
+            // if black
+            if(isWhite) {
+                if(!item.isWhite) Tile.HintBackground(tile)
+            }
+            // if white
+            else {
+                if(item.isWhite) Tile.HintBackground(tile)
+            }
+        } else {
+            Tile.HintBackground(tile)
+        }
+    }
+
     MovementMechanism = () => {
         if (this.ClickedPiece()) {
-            console.log(this)
+            let x = this.piecePosition % 10
+            let y = (this.piecePosition - x) / 10            
+
+            // let coordinates
+            let TopLeftTile = (y + 2) * 10 + x-1 
+            let TopBottomMoves = (y + 2) * 10 + x+1  
+            let LeftTopMoves = (y - 1) * 10 + x+2   
+            let LeftBottomMoves = (y - 1) * 10 + x-2  
+            let RightTopMoves = (y + 1) * 10 + x+2
+            let RightBottomMoves = (y + 1) * 10 + x-2  
+            let BottomLeftMoves = (y - 2) * 10 + x-1  
+            let BottomRightMovex = (y - 2) * 10 + x+1 
+
+            // black
+            if(!this.isWhite) {
+                this.HorseGrid(TopLeftTile, false)
+                this.HorseGrid(TopBottomMoves, false)
+                this.HorseGrid(LeftTopMoves, false)
+                this.HorseGrid(LeftBottomMoves, false)
+                this.HorseGrid(RightTopMoves, false)
+                this.HorseGrid(RightBottomMoves, false)
+                this.HorseGrid(BottomLeftMoves, false)
+                this.HorseGrid(BottomRightMovex, false)
+            } 
+            // white
+            else {
+                this.HorseGrid(TopLeftTile, true)
+                this.HorseGrid(TopBottomMoves, true)
+                this.HorseGrid(LeftTopMoves, true)
+                this.HorseGrid(LeftBottomMoves, true)
+                this.HorseGrid(RightTopMoves, true)
+                this.HorseGrid(RightBottomMoves, true)
+                this.HorseGrid(BottomLeftMoves, true)
+                this.HorseGrid(BottomRightMovex, true)
+            }
+
         } else {
             console.log('This piece is not selected')
+            Tile.ResetBackground()
+            Tile.ResetHintBackground()
         }
     }
 }   

@@ -78,10 +78,10 @@ export class Pawn extends Piece {
 
     MovementMechanism = () => {
         if (this.ClickedPiece()) {
-            // white pawn
             let x = this.piecePosition % 10
             let y = (this.piecePosition - x) / 10
-
+            
+            // white pawn
             if(this.isWhite) {
 
                 // check is first move
@@ -99,14 +99,14 @@ export class Pawn extends Piece {
 
                 // if at the left diagonal exist black pieces
                 let leftDiagonalTile = (y+1) * 10 + x - 1
-                if(x > 1 && y < 8 && TileController.IsTileHaveChildren(leftDiagonalTile)){
+                if(x > 1 && x < 8 && y > 1 && y < 8 && TileController.IsTileHaveChildren(leftDiagonalTile)){
                     // if black 
                     let item = GetKeyPieces(TileController.GetChildrenElement(leftDiagonalTile).id)
                     if(!item.isWhite) Tile.HintBackground(leftDiagonalTile)
                 }
 
                 let rightDiagonalTile = (y+1) * 10 + x + 1
-                if(x > 1 && y < 8 && TileController.IsTileHaveChildren(rightDiagonalTile)){
+                if(x > 1 && x < 8 && y > 1 && y < 8 && TileController.IsTileHaveChildren(rightDiagonalTile)){
                     // if black 
                     let item = GetKeyPieces(TileController.GetChildrenElement(rightDiagonalTile).id)
                     if(!item.isWhite) Tile.HintBackground(rightDiagonalTile)
