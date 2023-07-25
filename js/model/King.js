@@ -26,7 +26,6 @@ export class King extends Piece {
         
         // capture piece for white
         return PieceController.CapturePieceMechanism(this, dest)
-
     }
 
     MovementMechanism = () => {
