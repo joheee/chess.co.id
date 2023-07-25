@@ -29,10 +29,13 @@ body {
 }
 
 #chess-board {
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: .5rem;
     overflow: hidden;
     display: grid;
     grid-template-columns: repeat(8,minmax(min-content, max-content));
+    justify-content: center;
+    align-items: center;
 }
 
 #top-bar {
@@ -42,6 +45,7 @@ body {
 .tile-height-width {
     height: 10rem;
     width: 10rem;
+    position: relative;
 }
 
 @media screen and (max-width: 850px) {
@@ -55,7 +59,17 @@ body {
     }
 }
   
-
 img {
     width: 100%;
+}
+
+.hint-movement {
+    background-color: #26242144;
+    width: 50%;
+    height: 50%;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

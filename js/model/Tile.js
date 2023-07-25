@@ -1,4 +1,5 @@
 import { Variable } from "../config/Variable.js"
+import { TileController } from "../controller/TileController.js"
 
 export class Tile {
     constructor(tilePosition) {
@@ -26,9 +27,34 @@ export class Tile {
         j % 2 !== 0 ? Variable.firstTile : Variable.secondTile
     }
 
+    static ResetBackground(){
+        for(let i=1;i<=8;i++) {
+            for(let j=1;j<=8;j++){
+                let tile = new Tile(`${i}${j}`)
+                tile.DefaultBackground()
+            }
+        }
+    }
+
+    static ResetHintBackground(){
+        console.log('here')
+        const hintElements = document.querySelectorAll('.hint-movement');
+        hintElements.forEach((element) => {
+        element.remove();
+        });
+    }
+
+    static HintBackground(id) {
+        const hintDiv = document.createElement('div')
+        hintDiv.setAttribute('class', 'hint-movement')
+        const tile = document.getElementById(id)
+        tile.appendChild(hintDiv)
+    }
+
     DefaultBackground() {
         const i = parseInt(this.tilePosition[0])
         const j = parseInt(this.tilePosition[1])
+        document.getElementById(this.tilePosition).style.borderRadius = '0'
         document.getElementById(this.tilePosition).style.backgroundColor = i % 2 === 0 ?
         j % 2 === 0 ? Variable.firstTile : Variable.secondTile :
         j % 2 !== 0 ? Variable.firstTile : Variable.secondTile

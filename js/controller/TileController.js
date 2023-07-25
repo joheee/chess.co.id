@@ -22,10 +22,19 @@ export class TileController {
 
     static IsTileHaveChildren(tilePosition) {
         let tileElement = document.getElementById(tilePosition)
-        if(tileElement.hasChildNodes()) return true
+        let hintMovementElements = tileElement.querySelectorAll('.hint-movement')
+        let childElements = tileElement.children
+        if(tileElement.hasChildNodes()) {
+            for (let i = 0; i < childElements.length; i++) {
+                // child that doesnt have class hint-movement
+                if(!childElements[i].classList.contains('hint-movement')){
+                  return true;
+                }
+              }
+        } 
+        
         return false
     }
-
     static GetChildrenElement(tilePosition) {
         let tileElement = document.getElementById(tilePosition)
         return tileElement.firstElementChild
@@ -35,10 +44,13 @@ export class TileController {
 
         let piece = document.getElementById(elementId)
         if(piece !== null) {
+
             // RETURN BACK THE TILE COLOR
-            const parentElement = piece.closest(Variable.tileClass)
-            parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id)
-    
+            Tile.ResetBackground()
+
+            // RESET HINT TILE COLOR
+            Tile.ResetHintBackground()
+            
             // MOVE THE PIECE
             let targetTile = document.getElementById(tilePosition)
             piece.parentNode.removeChild(piece)
