@@ -30,9 +30,64 @@ export class King extends Piece {
 
     MovementMechanism = () => {
         if (this.ClickedPiece()) {
-            console.log(this)
+            let x = this.piecePosition % 10
+            let y = (this.piecePosition - x) / 10      
+
+            // white king
+            if (this.isWhite) {
+                const directions = [
+                  [-1, -1], [-1, 0], [-1, 1],
+                  [0, -1], /*KING*/ [0, 1],
+                  [1, -1], [1, 0], [1, 1]
+                ];
+              
+                for (const [dy, dx] of directions) {
+                    const yNext = y + dy;
+                    const xNext = x + dx;
+                    if (yNext >= 1 && yNext <= 8 && xNext >= 1 && xNext <= 8) {
+                        const tile = yNext * 10 + xNext;
+                        if (!TileController.IsTileHaveChildren(tile)) {
+                            Tile.HintBackground(tile);
+                        } else {
+                            const item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                            if (!item.isWhite) {
+                                Tile.HintBackground(tile);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // black king
+            else {
+                const directions = [
+                  [-1, -1], [-1, 0], [-1, 1],
+                  [0, -1], /*KING*/ [0, 1],
+                  [1, -1], [1, 0], [1, 1]
+                ];
+              
+                for (const [dy, dx] of directions) {
+                    const yNext = y + dy;
+                    const xNext = x + dx;
+                    if (yNext >= 1 && yNext <= 8 && xNext >= 1 && xNext <= 8) {
+                        const tile = yNext * 10 + xNext;
+                        if (!TileController.IsTileHaveChildren(tile)) {
+                            Tile.HintBackground(tile);
+                        } else {
+                            const item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                            if (item.isWhite) {
+                                Tile.HintBackground(tile);
+                            }
+                        }
+                    }
+                }
+            }
+              
+
         } else {
             console.log('This piece is not selected')
+            Tile.ResetBackground()
+            Tile.ResetHintBackground()
         }
     }
 }
