@@ -36,22 +36,22 @@ body {
 }
 
 #top-bar {
-    width: 40rem;
+    width: 80rem;
 }
 
 .tile-height-width {
-    height: 5rem;
-    width: 5rem;
+    height: 10rem;
+    width: 10rem;
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 850px) {
     #top-bar {
-        width: clamp(10rem, 96vw, 40rem);
+        width: clamp(10rem, 96vw, 80rem);
     }
     
     .tile-height-width {
-        height: clamp(1rem, 11.5vw, 5rem);
-        width: clamp(1rem, 11.5vw, 5rem);
+        height: clamp(1rem, 11.5vw, 10rem);
+        width: clamp(1rem, 11.5vw, 10rem);
     }
 }
   

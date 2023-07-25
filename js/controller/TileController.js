@@ -11,7 +11,7 @@ export class TileController {
                 const elementId = Variable.currentElement.elementId
                 const tileId = Variable.currentElement.piecePosition 
 
-                if(tilePosition != tileId && !this.IsTileHaveChildren(tilePosition)) {
+                if(tilePosition != tileId && Variable.currentElement.ValidMoves(parseInt(tilePosition))) {
                     console.log('valid tile to move')
                     this.HandlePieceMovement(elementId,tilePosition)
                 }
@@ -23,6 +23,11 @@ export class TileController {
         let tileElement = document.getElementById(tilePosition)
         if(tileElement.hasChildNodes()) return true
         return false
+    }
+
+    static GetChildrenElement(tilePosition) {
+        let tileElement = document.getElementById(tilePosition)
+        return tileElement.firstElementChild
     }
 
     static HandlePieceMovement(elementId, tilePosition) {

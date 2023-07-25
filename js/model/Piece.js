@@ -38,6 +38,8 @@ export class Piece {
     
     MovementMechanism = () => {}
 
+    ValidMoves = (dest) => {}
+
     ValidateCaptured() {
         if(this.isCaptured) document.getElementById(this.elementId).style.display = 'none'
         else document.getElementById(this.elementId).style.display = 'block'

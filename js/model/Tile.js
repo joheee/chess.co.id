@@ -4,7 +4,20 @@ export class Tile {
     constructor(tilePosition) {
         this.tilePosition = tilePosition
     }
-    
+
+    static GetXYTile(dot) {
+        let arr = []
+        let xSrc = dot % 10
+        let ySrc = (dot - xSrc) / 10
+        arr.push(ySrc)
+        arr.push(xSrc)
+        return arr
+    }
+
+    static ArrangeGrid(x,y){
+        return y * 10 + x
+    }
+
     static CalculateBackground(elementId) {
         const i = parseInt(elementId[0])
         const j = parseInt(elementId[1])

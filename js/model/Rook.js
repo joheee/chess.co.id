@@ -8,5 +8,17 @@ export class Rook extends Piece {
     }
     MovementMechanism = () => {
         console.log(this)
+    }  
+    ValidMoves = (dest) => {
+
+        return true
+    }
+
+    MovementMechanism = () => {
+        if (this.ClickedPiece()) {
+            console.log(this)
+        } else {
+            console.log('This piece is not selected')
+        }
     }
 }
