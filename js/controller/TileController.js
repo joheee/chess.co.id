@@ -6,7 +6,6 @@ import { PieceController } from "./PieceController.js"
 export class TileController {
     static TileEventListener(tilePosition) {
         document.getElementById(tilePosition).addEventListener('click', () => {
-            console.log(tilePosition)
             Variable.tilePosition = tilePosition
             
             if(Variable.isClickedPiece && Variable.currentElement !== null) {
