@@ -17,22 +17,7 @@ export class Bishop extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
         
-        const deltaY = Math.abs(yDest - ySrc)
-        const deltaX = Math.abs(xDest - xSrc) 
-
-        if (deltaY !== deltaX) return false
-
-        const yDirection = yDest > ySrc ? 1 : -1
-        const xDirection = xDest > xSrc ? 1 : -1
-
-        for (let i = 1; i < deltaY; i++) {
-            const y = ySrc + i * yDirection
-            const x = xSrc + i * xDirection
-
-            // check whether there is a piece 
-            let curr = y * 10 + x
-            if (TileController.IsTileHaveChildren(curr)) return false
-        }
+        if(!PieceController.DiagonalValidation(xSrc,ySrc,xDest,yDest)) return false
 
         // capture pawn for white
         if(this.isWhite) {

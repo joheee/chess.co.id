@@ -3,6 +3,7 @@ import { Variable } from "../config/Variable.js";
 import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyPieces } from "../logic/Control.js";
 import { Queen } from "../model/Queen.js";
+import { TileController } from "./TileController.js";
 
 export class PieceController {
     static HandleCapture(id){
@@ -77,4 +78,54 @@ export class PieceController {
             document.getElementById(pawn.elementId).remove()
         }
     }
+
+    static DiagonalValidation(xSrc,ySrc,xDest,yDest) {
+        // checking the diagonal direction
+        const deltaY = Math.abs(yDest - ySrc)
+        const deltaX = Math.abs(xDest - xSrc) 
+
+        if (deltaY !== deltaX) return false
+
+        const yDirection = yDest > ySrc ? 1 : -1
+        const xDirection = xDest > xSrc ? 1 : -1
+
+        for (let i = 1; i < deltaY; i++) {
+            const y = ySrc + i * yDirection
+            const x = xSrc + i * xDirection
+
+            // check whether there is a piece 
+            let curr = y * 10 + x
+            if (TileController.IsTileHaveChildren(curr)) return false
+        }
+        return true
+    }
+
+    static IsPathClear(ySrc, xSrc, yDest, xDest) {
+        // Check if the movement is horizontal
+        if (ySrc === yDest) {
+          const xDirection = xDest > xSrc ? 1 : -1; // Determine the direction (left or right)
+    
+          // Check each square on the horizontal path for obstructions
+          for (let x = xSrc + xDirection; x !== xDest; x += xDirection) {
+            // Check if there's a piece at the square (ySrc, x)
+            // Implement your logic to check if there's a piece at the current square (ySrc, x)
+            if (TileController.IsTileHaveChildren(ySrc * 10 + x)) return false
+            }
+        }
+        // Check if the movement is vertical
+        else if (xSrc === xDest) {
+          const yDirection = yDest > ySrc ? 1 : -1; // Determine the direction (up or down)
+          
+          // Check each square on the vertical path for obstructions
+          for (let y = ySrc + yDirection; y !== yDest; y += yDirection) {
+            // Check if there's a piece at the square (y, xSrc)
+            // Implement your logic to check if there's a piece at the current square (y, xSrc)
+            if (TileController.IsTileHaveChildren(y * 10 + xSrc)) return false
+          }
+        }
+    
+        // If no obstructions are found, the path is clear
+        return true;
+    }
+
 }
