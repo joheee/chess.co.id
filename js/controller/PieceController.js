@@ -128,4 +128,43 @@ export class PieceController {
         return true;
     }
 
+    static IsPathClearForQueen(ySrc, xSrc, yDest, xDest) {
+        const deltaY = Math.abs(yDest - ySrc);
+        const deltaX = Math.abs(xDest - xSrc);
+    
+        // Check if the movement is horizontal
+        if (ySrc === yDest) {
+          const xDirection = xDest > xSrc ? 1 : -1; // Determine the direction (left or right)
+    
+          // Check each square on the horizontal path for obstructions
+          for (let x = xSrc + xDirection; x !== xDest; x += xDirection) {
+            if (TileController.IsTileHaveChildren(ySrc * 10 + x)) return false
+          }
+        }
+        // Check if the movement is vertical
+        else if (xSrc === xDest) {
+          const yDirection = yDest > ySrc ? 1 : -1; // Determine the direction (up or down)
+    
+          // Check each square on the vertical path for obstructions
+          for (let y = ySrc + yDirection; y !== yDest; y += yDirection) {
+            if (TileController.IsTileHaveChildren(y * 10 + xSrc)) return false
+          }
+        }
+        // Check if the movement is diagonal
+        else if (deltaY === deltaX) {
+          const yDirection = yDest > ySrc ? 1 : -1; // Determine the vertical direction (up or down)
+          const xDirection = xDest > xSrc ? 1 : -1; // Determine the horizontal direction (left or right)
+    
+          // Check each square on the diagonal path for obstructions
+          for (let i = 1; i < deltaY; i++) {
+            const y = ySrc + i * yDirection;
+            const x = xSrc + i * xDirection;
+            if (TileController.IsTileHaveChildren(y * 10 + x)) return false
+          }
+        }
+    
+        // If no obstructions are found, the path is clear
+        return true;
+      }
+
 }

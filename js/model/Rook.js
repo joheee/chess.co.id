@@ -48,7 +48,6 @@ export class Rook extends Piece {
             return true
         }
 
-        return true
     }
 
     MovementMechanism = () => {
