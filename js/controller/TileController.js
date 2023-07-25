@@ -35,6 +35,7 @@ export class TileController {
         
         return false
     }
+    
     static GetChildrenElement(tilePosition) {
         let tileElement = document.getElementById(tilePosition)
         return tileElement.firstElementChild

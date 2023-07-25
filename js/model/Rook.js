@@ -28,11 +28,124 @@ export class Rook extends Piece {
 
     }
 
+    
+
     MovementMechanism = () => {
         if (this.ClickedPiece()) {
-            console.log(this)
+            let x = this.piecePosition % 10
+            let y = (this.piecePosition - x) / 10     
+            if (this.isWhite) {
+                // Highlight valid tiles in upward direction
+                for (let i = y - 1; i >= 1; i--) {
+                    let tile = i * 10 + x;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (!item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+              
+                // Highlight valid tiles in downward direction
+                for (let i = y + 1; i <= 8; i++) {
+                    let tile = i * 10 + x;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (!item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+              
+                // Highlight valid tiles in left direction
+                for (let j = x - 1; j >= 1; j--) {
+                    let tile = y * 10 + j;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (!item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+              
+                // Highlight valid tiles in right direction
+                for (let j = x + 1; j <= 8; j++) {
+                    let tile = y * 10 + j;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (!item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+            }
+            // black rook
+            else {
+                // Highlight valid tiles in upward direction
+                for (let i = y - 1; i >= 1; i--) {
+                    let tile = i * 10 + x;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+              
+                // Highlight valid tiles in downward direction
+                for (let i = y + 1; i <= 8; i++) {
+                    let tile = i * 10 + x;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+              
+                // Highlight valid tiles in left direction
+                for (let j = x - 1; j >= 1; j--) {
+                    let tile = y * 10 + j;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+              
+                // Highlight valid tiles in right direction
+                for (let j = x + 1; j <= 8; j++) {
+                    let tile = y * 10 + j;
+                    if (TileController.IsTileHaveChildren(tile)) {
+                        let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                        if (item.isWhite) {
+                        Tile.HintBackground(tile);
+                        }
+                        break;
+                    }
+                    Tile.HintBackground(tile);
+                }
+            }
+              
         } else {
             console.log('This piece is not selected')
+            Tile.ResetBackground()
+            Tile.ResetHintBackground()
         }
     }
 }
