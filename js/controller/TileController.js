@@ -50,8 +50,6 @@ export class TileController {
             
             // pawn promote straight to queen
             const [yDest, xDest] = Tile.GetXYTile(tilePosition)
-            console.log(Variable.currentElement)
-            console.log(yDest === 8)
 
             if((yDest === 8 || yDest === 1) && Variable.currentElement instanceof Pawn) {
                 PieceController.PromoteToQueen(Variable.currentElement, tilePosition)

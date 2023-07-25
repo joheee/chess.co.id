@@ -22,11 +22,15 @@ export class Pawn extends Piece {
             if(yDest - ySrc > 2 || yDest - ySrc < 0) return false
             
             // validate the white pawn cannot go sideway (except for eat the black pawn)
-            // and the left or right diagonal did not contain black piece
+            // and the left or rightdiagonal did not contain black piece
             let leftDiagonal = (xDest - xSrc === -1 && yDest - ySrc === 1)
             let rightDiagonal = (xDest - xSrc === 1 && yDest - ySrc === 1)
-            if(Math.abs(xSrc - xDest) !== 0 && !leftDiagonal && !rightDiagonal) return false 
-
+            if(
+                Math.abs(xSrc - xDest) !== 0 && 
+                (!leftDiagonal || !TileController.IsTileHaveChildren(dest)) &&
+                (!rightDiagonal || !TileController.IsTileHaveChildren(dest))
+            ) return false 
+            
             // validate the first move is not able to use anymore
             if(this.isFirstMove === true && yDest - ySrc > 1) return false
 
@@ -34,13 +38,12 @@ export class Pawn extends Piece {
             if(TileController.IsTileHaveChildren(dest) && xDest - xSrc === 0) return false
 
             // pawn is eating
-            if(TileController.IsTileHaveChildren(dest)) {
-                PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-            }
-
+            if(TileController.IsTileHaveChildren(dest)) PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
+            
             this.isFirstMove = true
             return true
         } 
+
         // black validation
         else {
             // length of the source to dest more than 2 or less than 0
