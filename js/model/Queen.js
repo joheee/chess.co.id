@@ -10,9 +10,7 @@ export class Queen extends Piece {
         this.pawnValue = 9
         this.MovementListener()
     }
-    MovementMechanism = () => {
-        console.log(this)
-    }  
+
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
@@ -27,30 +25,9 @@ export class Queen extends Piece {
         // Check if there are no obstructions along the horizontal, vertical, or diagonal path
         if (!PieceController.IsPathClearForQueen(ySrc, xSrc, yDest, xDest)) return false
         
-        // capture pawn for white
-        if(this.isWhite) {
-            // checking whether the destination contains pieces or not
-            if(TileController.IsTileHaveChildren(dest)) {
-                let piece = GetKeyPieces(TileController.GetChildrenElement(dest).id)
-                if(piece.isWhite) return false 
-                else {
-                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-                }
-            }
-            return true
-        } 
-        // capture pawn for black
-        else {
-            // checking whether the destination contains pieces or not
-            if(TileController.IsTileHaveChildren(dest)) {
-                let piece = GetKeyPieces(TileController.GetChildrenElement(dest).id)
-                if(!piece.isWhite) return false 
-                else {
-                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-                }
-            }
-            return true
-        }
+        // capture piece for white
+        return PieceController.CapturePieceMechanism(this, dest)
+
     }
 
     MovementMechanism = () => {

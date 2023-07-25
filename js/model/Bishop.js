@@ -10,39 +10,16 @@ export class Bishop extends Piece {
         this.pawnValue = 3
         this.MovementListener()
     }
-    MovementMechanism = () => {
-        console.log(this)
-    }  
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
         
+        // diagonal movement validation
         if(!PieceController.DiagonalValidation(xSrc,ySrc,xDest,yDest)) return false
 
-        // capture pawn for white
-        if(this.isWhite) {
-            // checking whether the destination contains pieces or not
-            if(TileController.IsTileHaveChildren(dest)) {
-                let piece = GetKeyPieces(TileController.GetChildrenElement(dest).id)
-                if(piece.isWhite) return false 
-                else {
-                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-                }
-            }
-            return true
-        } 
-        // capture pawn for black
-        else {
-            // checking whether the destination contains pieces or not
-            if(TileController.IsTileHaveChildren(dest)) {
-                let piece = GetKeyPieces(TileController.GetChildrenElement(dest).id)
-                if(!piece.isWhite) return false 
-                else {
-                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-                }
-            }
-            return true
-        }
+        // capture piece for white
+        return PieceController.CapturePieceMechanism(this, dest)
+
     }
 
     MovementMechanism = () => {

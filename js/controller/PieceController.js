@@ -27,6 +27,32 @@ export class PieceController {
         }
     }
 
+    static CapturePieceMechanism(piece,dest){
+        if(piece.isWhite) {
+            // checking whether the destination contains pieces or not
+            if(TileController.IsTileHaveChildren(dest)) {
+                let item = GetKeyPieces(TileController.GetChildrenElement(dest).id)
+                if(item.isWhite) return false 
+                else {
+                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
+                }
+            }
+            return true
+        } 
+        // capture item for black
+        else {
+            // checking whether the destination contains pieces or not
+            if(TileController.IsTileHaveChildren(dest)) {
+                let item = GetKeyPieces(TileController.GetChildrenElement(dest).id)
+                if(!item.isWhite) return false 
+                else {
+                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
+                }
+            }
+            return true
+        }
+    }
+
     static ManipulateElement(idContainer) {
         document.getElementById(idContainer).style.display = 'flex'
         let idCount = idContainer + '-count'

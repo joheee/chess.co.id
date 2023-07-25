@@ -10,10 +10,7 @@ export class Knight extends Piece {
         this.pawnValue = 3
         this.MovementListener()
     }
-    MovementMechanism = () => {
-        console.log(this)
 
-    }  
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
@@ -25,7 +22,6 @@ export class Knight extends Piece {
         // top side
         let TopLeftMoves = x === -1 && y === 2
         let TopBottomMoves = x === 1 && y === 2
-        console.log(TopLeftMoves, TopBottomMoves)
         
         // left side
         let LeftTopMoves = x === -2 && y === 1
@@ -51,30 +47,8 @@ export class Knight extends Piece {
             !BottomRightMovex
         ) return false
 
-        // capture pawn for white
-        if(this.isWhite) {
-            // checking whether the destination contains pieces or not
-            if(TileController.IsTileHaveChildren(dest)) {
-                let piece = GetKeyPieces(TileController.GetChildrenElement(dest).id)
-                if(piece.isWhite) return false 
-                else {
-                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-                }
-            }
-            return true
-        } 
-        // capture pawn for black
-        else {
-            // checking whether the destination contains pieces or not
-            if(TileController.IsTileHaveChildren(dest)) {
-                let piece = GetKeyPieces(TileController.GetChildrenElement(dest).id)
-                if(!piece.isWhite) return false 
-                else {
-                    PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
-                }
-            }
-            return true
-        }
+        // capture piece for white
+        return PieceController.CapturePieceMechanism(this, dest)
     }
 
     MovementMechanism = () => {
