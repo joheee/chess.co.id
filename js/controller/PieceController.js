@@ -1,6 +1,6 @@
 import { Pieces } from "../component/Pieces.js";
 import { Variable } from "../config/Variable.js";
-import { WhitePieces } from "../index.js";
+import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyPieces } from "../logic/Control.js";
 import { Queen } from "../model/Queen.js";
 
@@ -59,7 +59,22 @@ export class PieceController {
             document.getElementById(pawn.elementId).remove()
 
         } else {
+            
+            Variable.totalBlackQueen ++
+            
+            // APPEND NEW QUEEN
+            let id = `bq-${Variable.totalBlackQueen}`
+            const whiteQueen = Pieces('/assets/bq.png', id)
+            document.getElementById(idDest).appendChild(whiteQueen)
+            
+            // ASSIGN TO WHITEPIECES OBJECT
+            let key = `BlackQueen_${Variable.totalBlackQueen}`
+            let newQueen = {[key] : new Queen(false, pawn.piecePosition, true, id)}
+            Object.assign(BlackPieces, newQueen);
 
+            // REMOVE PAWN ELEMENT
+            console.log(pawn.elementId)
+            document.getElementById(pawn.elementId).remove()
         }
     }
 }
