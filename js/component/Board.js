@@ -34,11 +34,11 @@ export function Board() {
             // INSERT QUEEN
             if(j === 4) {
                 if(i === 8) {
-                    const blackQueen = Pieces('/assets/bq.png', 'bq')
+                    const blackQueen = Pieces('/assets/bq.png', 'bq-1')
                     boardTile.appendChild(blackQueen)
                 }
                 if(i === 1) {
-                    const whiteQueen = Pieces('/assets/wq.png', 'wq')
+                    const whiteQueen = Pieces('/assets/wq.png', 'wq-1')
                     boardTile.appendChild(whiteQueen)
                 }
             }

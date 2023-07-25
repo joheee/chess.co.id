@@ -16,6 +16,10 @@ export class Variable {
     // TIME
     static timePlayed = 0
 
+    // TOTAL WHITE AND BLACK QUEEN
+    static totalWhiteQueen = 1
+    static totalBlackQueen = 1
+
     static ResetState(){
         this.isClickedPiece = false
         this.tilePosition = -23

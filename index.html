@@ -29,11 +29,36 @@
 
     <div id="chess-board-outer">
 
+        <!-- BLACK PLAYER PROFILE -->
         <div id="black-player" class="player">
             <div class="left-side">
                 <img class="image-container" src="assets/black-player.jpg" alt="black player profile">
-                <div class="player-name" id="black-name">
-                    black player
+                <div class="">
+                    <div class="player-name" id="black-name">
+                        black player
+                    </div>
+                    <div class="capture-image-container">
+                        <div class="capture-piece-item" id="white-pawn">
+                            <img class="capture-image-item" src="assets/wp.png" alt="">
+                            <div class="capture-image-count" id="white-pawn-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="white-bishop">
+                            <img class="capture-image-item" src="assets/wb.png" alt="">
+                            <div class="capture-image-count" id="white-bishop-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="white-knight">
+                            <img class="capture-image-item" src="assets/wn.png" alt="">
+                            <div class="capture-image-count" id="white-knight-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="white-rook">
+                            <img class="capture-image-item" src="assets/wr.png" alt="">
+                            <div class="capture-image-count" id="white-rook-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="white-queen">
+                            <img class="capture-image-item" src="assets/wq.png" alt="">
+                            <div class="capture-image-count" id="white-queen-count">(x0)</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -44,13 +69,39 @@
             </div>
         </div>
 
+        <!-- CHESS BOARD -->
         <div id="chess-board"></div>
 
+        <!-- WHITE PLAYER PROFILE -->
         <div id="white-player" class="player">
             <div class="left-side">
                 <img class="image-container" src="assets/white-player.jpeg" alt="black player profile">
-                <div class="player-name" id="white-name">
-                    white player
+                <div class="">
+                    <div class="player-name" id="white-name">
+                        white player
+                    </div>
+                    <div class="capture-image-container">
+                        <div class="capture-piece-item" id="black-pawn">
+                            <img class="capture-image-item" src="assets/bp.png" alt="">
+                            <div class="capture-image-count" id="black-pawn-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="black-bishop">
+                            <img class="capture-image-item" src="assets/bb.png" alt="">
+                            <div class="capture-image-count" id="black-bishop-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="black-knight">
+                            <img class="capture-image-item" src="assets/bn.png" alt="">
+                            <div class="capture-image-count" id="black-knight-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="black-rook">
+                            <img class="capture-image-item" src="assets/br.png" alt="">
+                            <div class="capture-image-count" id="black-rook-count">(x0)</div>
+                        </div>
+                        <div class="capture-piece-item" id="black-queen">
+                            <img class="capture-image-item" src="assets/bq.png" alt="">
+                            <div class="capture-image-count" id="black-queen-count">(x0)</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -67,6 +118,7 @@
         this is error message
     </div>
 
+    <!-- LOGIN MODAL -->
     <div class="modal-outer" id="login-modal">
         <img src="assets/logo-inner.svg" class="logo-inner" id="exit-button">
         <div class="login-form-wrapper modal-inner" >
@@ -86,6 +138,7 @@
         </div>
     </div>
 
+    <!-- REGISTER MODAL -->
     <div class="modal-outer" id="register-modal">
         <img src="assets/logo-inner.svg" class="logo-inner" id="exit-register-button">
         <div class="login-form-wrapper modal-inner" >
@@ -109,6 +162,7 @@
         </div>
     </div>
 
+    <!-- NEW GAME MODAL -->
     <div class="modal-outer" id="new-modal">
         <img src="assets/logo-inner.svg" class="logo-inner" id="exit-new-button">
         <div class="login-form-wrapper modal-inner" >

@@ -53,7 +53,7 @@ export const WhitePieces = {
     WhiteBishop_1 : new Bishop(false, 13, true, 'wb-1'),
     WhiteBishop_2 : new Bishop(false, 16, true, 'wb-2'),
     
-    WhiteQueen : new Queen(false, 14, true, 'wq'),
+    WhiteQueen_1 : new Queen(false, 14, true, 'wq-1'),
     WhiteKing : new King(false, 15, true, 'wk'),
 }
 
@@ -72,7 +72,7 @@ export const BlackPieces = {
     BlackKnight_2 : new Knight(false, 87, false, 'bn-2'),
     BlackBishop_1 : new Bishop(false, 83, false, 'bb-1'),
     BlackBishop_2 : new Bishop(false, 86, false, 'bb-2'),
-    BlackQueen : new Queen(false, 84, false, 'bq'),
+    BlackQueen_1 : new Queen(false, 84, false, 'bq-1'),
     BlackKing : new King(false, 85, false, 'bk'),
 }
 

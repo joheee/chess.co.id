@@ -40,3 +40,28 @@
 #white-player {
     margin-top: .5rem;
 }
+.capture-image-container {
+    display: flex;
+    align-items: center;
+}
+.capture-piece-item {
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+.capture-image-item {
+    height: 100%;
+    width: fit-content;
+}
+.capture-image-count {
+    color: white;
+    font-size: 1rem;
+}
+
+#white-pawn, #white-bishop, #white-knight, #white-rook, #white-queen {
+    display: none;
+}
+
+#black-pawn, #black-bishop, #black-knight, #black-rook, #black-queen {
+    display: none;
+}

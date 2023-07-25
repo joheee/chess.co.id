@@ -1,5 +1,7 @@
 import { Variable } from "../config/Variable.js"
+import { Pawn } from "../model/Pawn.js"
 import { Tile } from "../model/Tile.js"
+import { PieceController } from "./PieceController.js"
 
 export class TileController {
     static TileEventListener(tilePosition) {
@@ -33,21 +35,31 @@ export class TileController {
     static HandlePieceMovement(elementId, tilePosition) {
 
         let piece = document.getElementById(elementId)
+        if(piece !== null) {
+            // RETURN BACK THE TILE COLOR
+            const parentElement = piece.closest(Variable.tileClass)
+            parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id)
+    
+            // MOVE THE PIECE
+            let targetTile = document.getElementById(tilePosition)
+            piece.parentNode.removeChild(piece)
+            targetTile.appendChild(piece)
+            
+            // UPDATE THE ELEMENT STATE
+            Variable.currentElement.isClicked = false
+            Variable.currentElement.piecePosition = tilePosition
+            
+            // pawn promote straight to queen
+            const [yDest, xDest] = Tile.GetXYTile(tilePosition)
+            console.log(Variable.currentElement)
+            console.log(yDest === 8)
 
-        // RETURN BACK THE TILE COLOR
-        const parentElement = piece.closest(Variable.tileClass)
-        parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id)
+            if(yDest === 8 && Variable.currentElement instanceof Pawn) {
+                PieceController.PromoteToQueen(Variable.currentElement, tilePosition)
+            }   
 
-        // MOVE THE PIECE
-        let targetTile = document.getElementById(tilePosition)
-        piece.parentNode.removeChild(piece)
-        targetTile.appendChild(piece)
-        
-        // UPDATE THE ELEMENT STATE
-        Variable.currentElement.isClicked = false
-        Variable.currentElement.piecePosition = tilePosition
-        
-        // RESET THE STATE OF VARIABLE
-        Variable.ResetState()
+            // RESET THE STATE OF VARIABLE
+            Variable.ResetState()
+        }
     }
 }

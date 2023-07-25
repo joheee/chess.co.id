@@ -21,4 +21,7 @@ export class Queen extends Piece {
             console.log('This piece is not selected')
         }
     }
+    static CreateQueenElement(id){
+        
+    }
 }

@@ -1,5 +1,5 @@
+import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
-import { GetKeyPieces } from "../logic/Control.js";
 import { Piece } from "./Piece.js";
 import { Tile } from "./Tile.js";
 
@@ -33,8 +33,10 @@ export class Pawn extends Piece {
             // validate if the front has piece
             if(TileController.IsTileHaveChildren(dest) && xDest - xSrc === 0) return false
 
-            // let id = TileController.GetChildrenElement(dest).id
-            // console.log(GetKeyPieces(id))
+            // pawn is eating
+            if(TileController.IsTileHaveChildren(dest)) {
+                PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
+            }
 
             this.isFirstMove = true
             return true
