@@ -15,13 +15,6 @@ export class Queen extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
 
-         // Check if the movement is either horizontal, vertical, or diagonal
-        const deltaY = Math.abs(yDest - ySrc)
-        const deltaX = Math.abs(xDest - xSrc)
-
-        // The move is neither horizontal, vertical, nor diagonal
-        if (deltaY !== deltaX && ySrc !== yDest && xSrc !== xDest) return false
-
         // Check if there are no obstructions along the horizontal, vertical, or diagonal path
         if (!PieceController.IsPathClearForQueen(ySrc, xSrc, yDest, xDest)) return false
         

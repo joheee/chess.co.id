@@ -28,7 +28,6 @@ const navigation = new Navigation()
 
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()
-// console.log(Tiles[Index(1)][Index(1)])
 
 // DISPLAY RANDOM PLAYER NAME
 Player.DisplayPlayerName()
@@ -43,16 +42,12 @@ export const WhitePieces = {
     WhitePawn_6 : new Pawn(false, 26, true, 'wp-6'),
     WhitePawn_7 : new Pawn(false, 27, true, 'wp-7'),
     WhitePawn_8 : new Pawn(false, 28, true, 'wp-8'),
-
     WhiteRook_1 : new Rook(false, 11, true, 'wr-1'),
     WhiteRook_2 : new Rook(false, 18, true, 'wr-2'),
-
     WhiteKnight_1 : new Knight(false, 12, true, 'wn-1'),
     WhiteKnight_2 : new Knight(false, 17, true, 'wn-2'),
-
     WhiteBishop_1 : new Bishop(false, 13, true, 'wb-1'),
     WhiteBishop_2 : new Bishop(false, 16, true, 'wb-2'),
-    
     WhiteQueen_1 : new Queen(false, 14, true, 'wq-1'),
     WhiteKing : new King(false, 15, true, 'wk'),
 }
@@ -81,3 +76,4 @@ export const WhiteClock = new Time('white-clock')
 export const BlackClock = new Time('black-clock')
 WhiteClock.DisplayClock()
 BlackClock.DisplayClock()
+

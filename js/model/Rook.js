@@ -16,10 +16,6 @@ export class Rook extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
         
-        // Check if the movement is either horizontal or vertical
-        if (ySrc !== yDest && xSrc !== xDest) return false
-
-        // check whether the path is clear
         if(!PieceController.IsPathClear(ySrc, xSrc, yDest, xDest)) return false
 
         this.isFirstMove = true

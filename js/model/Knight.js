@@ -16,16 +16,8 @@ export class Knight extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
 
-        // Calculate the absolute differences in x and y coordinates
-        const deltaX = Math.abs(xDest - xSrc)
-        const deltaY = Math.abs(yDest - ySrc)
-
-        // Knight's L-shaped move: 2 steps in one direction and 1 step in a perpendicular direction
-        const isValidMove =
-        (deltaX === 1 && deltaY === 2) ||
-        (deltaX === 2 && deltaY === 1)
-
-        if(!isValidMove) return false
+        // knight validation movement
+        if(!PieceController.KnightMovementValidation(xSrc,ySrc,xDest,yDest)) return false
 
         // capture piece for white
         return PieceController.CapturePieceMechanism(this, dest)

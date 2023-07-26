@@ -1,4 +1,5 @@
 import { Variable } from "../config/Variable.js"
+import { KingController } from "../controller/KingController.js"
 import { Tile } from "./Tile.js"
 
 export class Piece {
@@ -16,7 +17,17 @@ export class Piece {
         const parentElement = imageElement.closest(Variable.tileClass)
 
         // Check if it's the correct color's turn to move
-        if (this.isWhite !== Variable.isWhiteMove) return false
+        // if (this.isWhite !== Variable.isWhiteMove) return false
+
+        // check if king is alright kwkw
+        if(!this.isWhite && KingController.KingBlackCheck()){
+            console.log('king black is check')
+        }
+        if(this.isWhite && KingController.KingWhiteCheck()){
+            console.log('king white is check')
+
+        }
+
 
         // handle click
         if (!this.isClicked && !Variable.isClickedPiece) {

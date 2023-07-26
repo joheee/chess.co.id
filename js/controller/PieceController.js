@@ -67,9 +67,29 @@ export class PieceController {
 
     static DeleteElement(id){
         document.getElementById(id).remove()
+        let piece = GetKeyPieces(id)
+        piece.isCaptured = true
+    }
+
+    static IsWhitePawnThreaten(xSrc,ySrc,xDest,yDest){
+        // is there any white pawn that check the king from left or right diagonal
+        let leftDiagonal = (xDest - xSrc === -1 && yDest - ySrc === 1)
+        let rightDiagonal = (xDest - xSrc === 1 && yDest - ySrc === 1)
+        return leftDiagonal || rightDiagonal
+    }
+
+    static IsBlackPawnThreaten(xSrc,ySrc,xDest,yDest){
+        // is there any black pawn that check the king from left or right diagonal
+        let leftDiagonal = (xDest - xSrc === -1 && yDest - ySrc === -1)
+        let rightDiagonal = (xDest - xSrc === 1 && yDest - ySrc === -1)
+        return leftDiagonal || rightDiagonal
     }
 
     static PromoteToQueen(pawn, idDest){
+        // update the status of pieces to being captured
+        let piece = GetKeyPieces(pawn.elementId)
+        piece.isCaptured = true
+
         if(pawn.isWhite) {
             Variable.totalWhiteQueen ++
             
@@ -107,6 +127,16 @@ export class PieceController {
         }
     }
 
+
+    static KnightMovementValidation(xSrc,ySrc,xDest,yDest) {
+        // Calculate the absolute differences in x and y coordinates
+        const deltaX = Math.abs(xDest - xSrc)
+        const deltaY = Math.abs(yDest - ySrc)
+
+        // Knight's L-shaped move: 2 steps in one direction and 1 step in a perpendicular direction
+        return (deltaX === 1 && deltaY === 2) || (deltaX === 2 && deltaY === 1)
+    }
+
     static DiagonalValidation(xSrc,ySrc,xDest,yDest) {
         // checking the diagonal direction
         const deltaY = Math.abs(yDest - ySrc)
@@ -129,6 +159,10 @@ export class PieceController {
     }
 
     static IsPathClear(ySrc, xSrc, yDest, xDest) {
+
+        // Check if the movement is either horizontal or vertical
+        if (ySrc !== yDest && xSrc !== xDest) return false
+
         // Check if the movement is horizontal
         if (ySrc === yDest) {
           const xDirection = xDest > xSrc ? 1 : -1; // Determine the direction (left or right)
@@ -157,9 +191,14 @@ export class PieceController {
     }
 
     static IsPathClearForQueen(ySrc, xSrc, yDest, xDest) {
-        const deltaY = Math.abs(yDest - ySrc);
-        const deltaX = Math.abs(xDest - xSrc);
     
+        // Check if the movement is either horizontal, vertical, or diagonal
+        const deltaY = Math.abs(yDest - ySrc)
+        const deltaX = Math.abs(xDest - xSrc)
+
+        // The move is neither horizontal, vertical, nor diagonal
+        if (deltaY !== deltaX && ySrc !== yDest && xSrc !== xDest) return false
+
         // Check if the movement is horizontal
         if (ySrc === yDest) {
           const xDirection = xDest > xSrc ? 1 : -1; // Determine the direction (left or right)
