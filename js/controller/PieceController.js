@@ -3,6 +3,7 @@ import { Variable } from "../config/Variable.js";
 import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyPieces } from "../logic/Control.js";
 import { Queen } from "../model/Queen.js";
+import { SoundController } from "./SoundController.js";
 import { TileController } from "./TileController.js";
 
 export class PieceController {
@@ -25,6 +26,7 @@ export class PieceController {
             if(key[1] === 'q') this.ManipulateElement('white-queen')
             this.DeleteElement(id)
         }
+        SoundController.PlaySoundCaptureOnce()                
     }
 
     static CapturePieceMechanism(piece,dest){

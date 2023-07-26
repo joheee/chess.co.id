@@ -2,6 +2,7 @@ import { Variable } from "../config/Variable.js"
 import { Pawn } from "../model/Pawn.js"
 import { Tile } from "../model/Tile.js"
 import { PieceController } from "./PieceController.js"
+import { SoundController } from "./SoundController.js"
 
 export class TileController {
     static TileEventListener(tilePosition) {
@@ -42,7 +43,6 @@ export class TileController {
     }
 
     static HandlePieceMovement(elementId, tilePosition) {
-
         let piece = document.getElementById(elementId)
         if(piece !== null) {
 
@@ -70,6 +70,9 @@ export class TileController {
 
             // RESET THE STATE OF VARIABLE
             Variable.ResetState()
+
+            // PLAY THE HELLA SOUND
+            SoundController.PlaySoundMoveOnce()
         }
     }
 }

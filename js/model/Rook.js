@@ -8,11 +8,10 @@ export class Rook extends Piece {
     constructor(isCaptured,piecePosition,isWhite,elementId){
         super(isCaptured, piecePosition, isWhite, elementId)
         this.pawnValue = 5
+        this.isFirstMove = false
         this.MovementListener()
     }
-    MovementMechanism = () => {
-        console.log(this)
-    }  
+
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
@@ -22,6 +21,8 @@ export class Rook extends Piece {
 
         // check whether the path is clear
         if(!PieceController.IsPathClear(ySrc, xSrc, yDest, xDest)) return false
+
+        this.isFirstMove = true
 
         // capture piece for white
         return PieceController.CapturePieceMechanism(this, dest)

@@ -25,5 +25,6 @@ export class Variable {
         this.tilePosition = -23
         this.currentElement = null
         this.parentElement = null
+        this.isWhiteMove = !this.isWhiteMove
     }
 }
