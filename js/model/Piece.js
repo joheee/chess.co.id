@@ -15,19 +15,25 @@ export class Piece {
         const imageElement = document.getElementById(this.elementId)
         const parentElement = imageElement.closest(Variable.tileClass)
 
-        if(!this.isClicked && !Variable.isClickedPiece) {
-            parentElement.style.backgroundColor = Variable.clickedTile
-            this.isClicked = true
+        // Check if it's the correct color's turn to move
+        if (this.isWhite !== Variable.isWhiteMove) return false
 
-            Variable.isClickedPiece = true
-            Variable.currentElement = this
-            return true
-        } else if(this.isClicked && Variable.isClickedPiece) {
-            parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id)
-            this.isClicked = false
+        // handle click
+        if (!this.isClicked && !Variable.isClickedPiece) {
+            parentElement.style.backgroundColor = Variable.clickedTile;
+            this.isClicked = true;
 
-            Variable.isClickedPiece = false
-            Variable.currentElement = null
+            Variable.isClickedPiece = true;
+            Variable.currentElement = this;
+            return true;
+        } else if (this.isClicked && Variable.isClickedPiece) {
+            parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id);
+            this.isClicked = false;
+
+            Variable.isClickedPiece = false;
+            Variable.currentElement = null;
+            Tile.ResetBackground();
+            Tile.ResetHintBackground();
         }
         return false
     }

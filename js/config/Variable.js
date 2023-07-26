@@ -1,3 +1,5 @@
+import { GameStateController } from "../controller/GameStateController.js"
+
 export class Variable {
     // BOARD
     static isWhiteMove = true
@@ -26,5 +28,7 @@ export class Variable {
         this.currentElement = null
         this.parentElement = null
         this.isWhiteMove = !this.isWhiteMove
+
+        GameStateController.DefineClock()
     }
 }

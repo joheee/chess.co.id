@@ -73,7 +73,6 @@ export class Pawn extends Piece {
             return PieceController.CapturePieceMechanism(this, dest)
 
         }
-
     }
 
     MovementMechanism = () => {
@@ -144,8 +143,6 @@ export class Pawn extends Piece {
             }
         } else {
             console.log('This piece is not selected')
-            Tile.ResetBackground()
-            Tile.ResetHintBackground()
         }
     }
 }

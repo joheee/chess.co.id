@@ -77,7 +77,7 @@ export const BlackPieces = {
 }
 
 // INITIALIZE CLOCK
-let whiteClock = new Time('white-clock')
-let blackClock = new Time('black-clock')
-whiteClock.DisplayClock()
-blackClock.DisplayClock()
+export const WhiteClock = new Time('white-clock')
+export const BlackClock = new Time('black-clock')
+WhiteClock.DisplayClock()
+BlackClock.DisplayClock()

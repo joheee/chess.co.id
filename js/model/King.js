@@ -39,6 +39,7 @@ export class King extends Piece {
                             TileController.HandlePieceMovement(this.elementId, kingNew)
                             item.ClickedPiece()
                             TileController.HandlePieceMovement(item.elementId, rookNew)
+                            Variable.ResetState()
                         }
                         break
                     }
@@ -58,9 +59,10 @@ export class King extends Piece {
                         let kingNew = tile + 1
                         let rookNew = tile + 2
                         if(kingNew === yDest * 10 + xDest - 1) {
-                            TileController.HandlePieceMovement(this.elementId, kingNew)
+                            TileController.HandlePieceMovement(this.elementId, kingNew + 1)
                             item.ClickedPiece()
-                            TileController.HandlePieceMovement(item.elementId, rookNew)
+                            TileController.HandlePieceMovement(item.elementId, rookNew + 1)
+                            Variable.ResetState()
                         }
                         break
                     }
@@ -173,8 +175,6 @@ export class King extends Piece {
 
         } else {
             console.log('This piece is not selected')
-            Tile.ResetBackground()
-            Tile.ResetHintBackground()
         }
     }
 }

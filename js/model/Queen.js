@@ -249,8 +249,6 @@ export class Queen extends Piece {
             }
         } else {
             console.log('This piece is not selected')
-            Tile.ResetBackground()
-            Tile.ResetHintBackground()
         }
     }
 }
