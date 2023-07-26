@@ -5,9 +5,9 @@ import { PieceController } from "./PieceController.js";
 import { TileController } from "./TileController.js";
 
 export class KingController {
-    static KingBlackCheck(){
+
+    static KingBlackCheck(kingPosition){
         let arr = []
-        let king = GetKeyPieces('bk')
 
         for (const pieceKey in WhitePieces) {
             if (WhitePieces.hasOwnProperty(pieceKey)) {
@@ -16,7 +16,7 @@ export class KingController {
                 if(!piece.isCaptured) {
                     let key = piece.elementId.split('-')[0].split('')
                     const [ySrc, xSrc] = Tile.GetXYTile(piece.piecePosition)
-                    const [yDest, xDest] = Tile.GetXYTile(king.piecePosition)
+                    const [yDest, xDest] = Tile.GetXYTile(kingPosition)
 
                     // pawn threaten
                     if(key[1] === 'p') {
@@ -58,13 +58,11 @@ export class KingController {
                 }
             }
         }
-        console.log(arr)
-        return true
+        return arr
     }
 
-    static KingWhiteCheck(){
+    static KingWhiteCheck(kingPosition){
         let arr = []
-        let king = GetKeyPieces('wk')
 
         for (const pieceKey in BlackPieces) {
             if (BlackPieces.hasOwnProperty(pieceKey)) {
@@ -73,7 +71,7 @@ export class KingController {
                 if(!piece.isCaptured) {
                     let key = piece.elementId.split('-')[0].split('')
                     const [ySrc, xSrc] = Tile.GetXYTile(piece.piecePosition)
-                    const [yDest, xDest] = Tile.GetXYTile(king.piecePosition)
+                    const [yDest, xDest] = Tile.GetXYTile(kingPosition)
 
                     // pawn threaten
                     if(key[1] === 'p') {
@@ -115,7 +113,33 @@ export class KingController {
                 }
             }
         }
-        console.log(arr)
-        return true
+        return arr
+    }
+    
+    static IsKingBlackCheck(kingPosition){
+        return this.KingBlackCheck(kingPosition).length > 0
+    }
+    
+    static IsKingWhiteCheck(kingPosition){
+        return this.KingWhiteCheck(kingPosition).length > 0
+    }
+
+    static GetKingThreaten(isWhite){
+        if(!isWhite) return this.KingBlackCheck(GetKeyPieces('bk').piecePosition)
+        return KingWhiteCheck(GetKeyPieces('wk').piecePosition)
+    }
+
+    static CheckKingIsThreaten(isWhite){
+        if (!isWhite && this.IsKingBlackCheck(GetKeyPieces('bk').piecePosition)) {
+            console.log('King black is in check');
+            return true;
+        }
+        
+        if (isWhite && this.IsKingWhiteCheck(GetKeyPieces('wk').piecePosition)) {
+            console.log('King white is in check');
+            return true;
+        }
+        
+        return false;
     }
 }

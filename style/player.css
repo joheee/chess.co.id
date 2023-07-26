@@ -13,7 +13,7 @@
 
 .left-side {
     display: flex;
-    gap: .5rem;
+    gap: 1rem;
     align-items: center;
 }
 

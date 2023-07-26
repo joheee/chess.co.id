@@ -1,4 +1,4 @@
-import { Variable } from "../config/Variable.js";
+import { KingController } from "../controller/KingController.js";
 import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
 import { GetKeyPieces } from "../logic/Control.js";
@@ -17,6 +17,13 @@ export class Pawn extends Piece {
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
+
+        // check if king is being checked
+        if (KingController.CheckKingIsThreaten(this.isWhite)) {
+            let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+            console.log(arrThreaten)
+            return false
+        }
 
         // white validation
         if(this.isWhite) {
@@ -80,6 +87,13 @@ export class Pawn extends Piece {
             let x = this.piecePosition % 10
             let y = (this.piecePosition - x) / 10
             
+            // check if king is being checked
+            if (KingController.CheckKingIsThreaten(this.isWhite)) {
+                let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+                console.log(arrThreaten)
+                return 
+            }
+
             // white pawn
             if(this.isWhite) {
 
