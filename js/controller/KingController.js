@@ -126,7 +126,7 @@ export class KingController {
 
     static GetKingThreaten(isWhite){
         if(!isWhite) return this.KingBlackCheck(GetKeyPieces('bk').piecePosition)
-        return KingWhiteCheck(GetKeyPieces('wk').piecePosition)
+        return this.KingWhiteCheck(GetKeyPieces('wk').piecePosition)
     }
 
     static CheckKingIsThreaten(isWhite){
@@ -141,5 +141,9 @@ export class KingController {
         }
         
         return false;
+    }
+
+    static RespondBlackKingThreaten(){
+        
     }
 }

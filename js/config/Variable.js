@@ -22,6 +22,10 @@ export class Variable {
     static totalWhiteQueen = 1
     static totalBlackQueen = 1
 
+    // BOOLEAN FOR CHECKMATES CONFIRMATION
+    static isBlackCheckMate = false
+    static isWhiteCheckMate = false
+
     static ResetState(){
         this.isClickedPiece = false
         this.tilePosition = -23

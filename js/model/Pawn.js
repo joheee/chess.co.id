@@ -90,7 +90,16 @@ export class Pawn extends Piece {
             // check if king is being checked
             if (KingController.CheckKingIsThreaten(this.isWhite)) {
                 let arrThreaten = KingController.GetKingThreaten(this.isWhite)
-                console.log(arrThreaten)
+                
+                // action for white
+                if(this.isWhite){
+
+                }
+                // action for black
+                else {
+
+                }
+
                 return 
             }
 
@@ -103,7 +112,6 @@ export class Pawn extends Piece {
                         let firstMoveTile = (y+i) * 10 + x
                         Tile.HintBackground(firstMoveTile)
                     }
-                    return  
                 }
                 
                 // if front is empty
@@ -133,7 +141,6 @@ export class Pawn extends Piece {
                         let firstMoveTile = (y-i) * 10 + x
                         Tile.HintBackground(firstMoveTile)
                     }
-                    return  
                 }
                 
                 // if front is empty
