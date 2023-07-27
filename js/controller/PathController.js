@@ -63,7 +63,7 @@ export class PathController {
             const xDirection = xDest > xSrc ? 1 : -1; // Determine the direction (left or right)
       
             // Check each square on the horizontal path for obstructions
-            for (let x = xSrc + xDirection; x !== xDest + 1; x += xDirection) {
+            for (let x = xSrc + xDirection; x !== xDest; x += xDirection) {
               // Check if there's a piece at the square (ySrc, x)
               // Implement your logic to check if there's a piece at the current square (ySrc, x)
               rookArr.push(ySrc * 10 + x)
@@ -74,12 +74,13 @@ export class PathController {
             const yDirection = yDest > ySrc ? 1 : -1; // Determine the direction (up or down)
             
             // Check each square on the vertical path for obstructions
-            for (let y = ySrc + yDirection; y !== yDest + 1; y += yDirection) {
+            for (let y = ySrc + yDirection; y !== yDest; y += yDirection) {
                 // Check if there's a piece at the square (y, xSrc)
                 // Implement your logic to check if there's a piece at the current square (y, xSrc)
                 rookArr.push(y * 10 + xSrc)
             }
         }
+        rookArr.push(parseInt(king.piecePosition))
         return rookArr
     }
 

@@ -21,9 +21,10 @@ export class Pawn extends Piece {
         // check if king is being checked
         if (KingController.CheckKingIsThreaten(this.isWhite)) {
             let arrThreaten = KingController.GetKingThreaten(this.isWhite)
-            let threadLeft = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
-
-            return 
+            let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+            responseMovement.forEach(move => {
+                if(dest !== move) return false
+            })
         }
 
         // white validation
@@ -91,10 +92,14 @@ export class Pawn extends Piece {
             // check if king is being checked
             if (KingController.CheckKingIsThreaten(this.isWhite)) {
                 let arrThreaten = KingController.GetKingThreaten(this.isWhite)
-                let threadLeft = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
-
+                let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+                responseMovement.forEach(move => {
+                    Tile.HintBackground(move)
+                })
                 return 
             }
+
+            console.log('masuk siniii')
 
             // white pawn
             if(this.isWhite) {

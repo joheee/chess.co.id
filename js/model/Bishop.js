@@ -1,3 +1,4 @@
+import { KingController } from "../controller/KingController.js";
 import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
 import { GetKeyPieces } from "../logic/Control.js";
@@ -14,6 +15,15 @@ export class Bishop extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
         
+        // check if king is being checked
+        if (KingController.CheckKingIsThreaten(this.isWhite)) {
+            let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+            let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+            responseMovement.forEach(move => {
+                if(dest !== move) return false
+            })
+        }
+
         // diagonal movement validation
         if(!PieceController.DiagonalValidation(xSrc,ySrc,xDest,yDest)) return false
 
@@ -27,6 +37,16 @@ export class Bishop extends Piece {
             let x = this.piecePosition % 10
             let y = (this.piecePosition - x) / 10      
             
+            // check if king is being checked
+            if (KingController.CheckKingIsThreaten(this.isWhite)) {
+                let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+                let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+                responseMovement.forEach(move => {
+                    Tile.HintBackground(move)
+                })
+                return 
+            }
+
             // white bishop
             if (this.isWhite) {
                 // Top-left diagonal

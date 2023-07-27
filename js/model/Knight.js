@@ -4,6 +4,7 @@ import { TileController } from "../controller/TileController.js";
 import { Piece } from "./Piece.js";
 import { Tile } from "./Tile.js";
 import { GetKeyPieces } from "../logic/Control.js";
+import { KingController } from "../controller/KingController.js";
 
 export class Knight extends Piece {
     constructor(isCaptured,piecePosition,isWhite,elementId){
@@ -43,6 +44,15 @@ export class Knight extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
 
+        // check if king is being checked
+        if (KingController.CheckKingIsThreaten(this.isWhite)) {
+            let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+            let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+            responseMovement.forEach(move => {
+                if(dest !== move) return false
+            })
+        }
+
         // knight validation movement
         if(!PieceController.KnightMovementValidation(xSrc,ySrc,xDest,yDest)) return false
 
@@ -76,6 +86,16 @@ export class Knight extends Piece {
         if (this.ClickedPiece()) {
             let x = this.piecePosition % 10
             let y = (this.piecePosition - x) / 10            
+
+            // check if king is being checked
+            if (KingController.CheckKingIsThreaten(this.isWhite)) {
+                let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+                let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+                responseMovement.forEach(move => {
+                    this.HorseGrid(move, this.isWhite)
+                })
+                return 
+            }
 
             // let coordinates
             let TopLeftTile = (y + 2) * 10 + x-1 

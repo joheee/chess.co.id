@@ -1,3 +1,4 @@
+import { KingController } from "../controller/KingController.js";
 import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
 import { GetKeyPieces } from "../logic/Control.js";
@@ -16,6 +17,15 @@ export class Rook extends Piece {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
         
+        // check if king is being checked
+        if (KingController.CheckKingIsThreaten(this.isWhite)) {
+            let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+            let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+            responseMovement.forEach(move => {
+                if(dest !== move) return false
+            })
+        }
+
         if(!PieceController.IsPathClear(ySrc, xSrc, yDest, xDest)) return false
 
         this.isFirstMove = true
@@ -30,6 +40,17 @@ export class Rook extends Piece {
         if (this.ClickedPiece()) {
             let x = this.piecePosition % 10
             let y = (this.piecePosition - x) / 10     
+            
+            // check if king is being checked
+            if (KingController.CheckKingIsThreaten(this.isWhite)) {
+                let arrThreaten = KingController.GetKingThreaten(this.isWhite)
+                let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+                responseMovement.forEach(move => {
+                    Tile.HintBackground(move)
+                })
+                return 
+            }
+            
             if (this.isWhite) {
                 // Highlight valid tiles in upward direction
                 for (let i = y - 1; i >= 1; i--) {

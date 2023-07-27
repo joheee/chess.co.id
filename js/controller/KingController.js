@@ -174,7 +174,7 @@ export class KingController {
 
                             // check is first move
                             let firstMoveTile = (y+2) * 10 + x
-                            if(!allies.isFirstMove && !TileController.IsTileHaveChildren(firstMoveTile)) {
+                            if(!allies.isFirstMove && !TileController.IsTileHaveChildren(frontTile) && !TileController.IsTileHaveChildren(firstMoveTile)) {
                                 pawnArr.push(firstMoveTile)
                             }
 
@@ -268,7 +268,6 @@ export class KingController {
                         if(key[1] === 'n') {
                             let knightArr = []
 
-                            console.log(allies.piecePosition)
                             // coordinates
                             let TopLeftTile = (y + 2) * 10 + x-1 
                             Knight.KnightPossibleMoves(TopLeftTile, knightArr, isWhite)
@@ -359,12 +358,152 @@ export class KingController {
                         
                         // queen allies
                         if(key[1] === 'q') {
+                            let queenArr = []
+                            // Highlight valid tiles in upward direction (same as rook's logic)
+                            for (let i = y - 1; i >= 1; i--) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
 
+                            // Highlight valid tiles in downward direction (same as rook's logic)
+                            for (let i = y + 1; i <= 8; i++) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in left direction (same as rook's logic)
+                            for (let j = x - 1; j >= 1; j--) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in right direction (same as rook's logic)
+                            for (let j = x + 1; j <= 8; j++) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in top-left diagonal direction (same as bishop's logic)
+                            for (let i = y - 1, j = x - 1; i >= 1 && j >= 1; i--, j--) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in top-right diagonal direction (same as bishop's logic)
+                            for (let i = y - 1, j = x + 1; i >= 1 && j <= 8; i--, j++) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in bottom-left diagonal direction (same as bishop's logic)
+                            for (let i = y + 1, j = x - 1; i <= 8 && j >= 1; i++, j--) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in bottom-right diagonal direction (same as bishop's logic)
+                            for (let i = y + 1, j = x + 1; i <= 8 && j <= 8; i++, j++) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            if(queenArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:queenArr
+                                }
+                                res.push(node)
+                            }
                         }
 
                         // king white
                         if(key[1] === 'k') {
-
+                            let kingArr = []
+                            const directions = [
+                                [-1, -1], [-1, 0], [-1, 1],
+                                [0, -1], /*KING*/ [0, 1],
+                                [1, -1], [1, 0], [1, 1]
+                              ];
+                            
+                            for (const [dy, dx] of directions) {
+                                const yNext = y + dy;
+                                const xNext = x + dx;
+                                if (yNext >= 1 && yNext <= 8 && xNext >= 1 && xNext <= 8) {
+                                    const tile = yNext * 10 + xNext;
+                                    if (!TileController.IsTileHaveChildren(tile)) {
+                                        kingArr.push(tile)
+                                    } else {
+                                        const item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                        if (!item.isWhite) {
+                                            kingArr.push(tile)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            if(kingArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:kingArr
+                                }
+                                res.push(node)
+                            }
                         }
                     }
                 }
@@ -578,12 +717,152 @@ export class KingController {
                         
                         // queen allies
                         if(key[1] === 'q') {
+                            let queenArr = []
+                            // Highlight valid tiles in upward direction (same as rook's logic)
+                            for (let i = y - 1; i >= 1; i--) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
 
+                            // Highlight valid tiles in downward direction (same as rook's logic)
+                            for (let i = y + 1; i <= 8; i++) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in left direction (same as rook's logic)
+                            for (let j = x - 1; j >= 1; j--) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in right direction (same as rook's logic)
+                            for (let j = x + 1; j <= 8; j++) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in top-left diagonal direction (same as bishop's logic)
+                            for (let i = y - 1, j = x - 1; i >= 1 && j >= 1; i--, j--) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in top-right diagonal direction (same as bishop's logic)
+                            for (let i = y - 1, j = x + 1; i >= 1 && j <= 8; i--, j++) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in bottom-left diagonal direction (same as bishop's logic)
+                            for (let i = y + 1, j = x - 1; i <= 8 && j >= 1; i++, j--) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            // Highlight valid tiles in bottom-right diagonal direction (same as bishop's logic)
+                            for (let i = y + 1, j = x + 1; i <= 8 && j <= 8; i++, j++) {
+                                let tile = i * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) {
+                                    queenArr.push(tile)
+                                    }
+                                    break;
+                                }
+                                queenArr.push(tile)
+                            }
+
+                            if(queenArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:queenArr
+                                }
+                                res.push(node)
+                            }
                         }
 
-                        // king white
+                        // king black
                         if(key[1] === 'k') {
-
+                            let kingArr = []
+                            const directions = [
+                                [-1, -1], [-1, 0], [-1, 1],
+                                [0, -1], /*KING*/ [0, 1],
+                                [1, -1], [1, 0], [1, 1]
+                              ];
+                            
+                            for (const [dy, dx] of directions) {
+                                const yNext = y + dy;
+                                const xNext = x + dx;
+                                if (yNext >= 1 && yNext <= 8 && xNext >= 1 && xNext <= 8) {
+                                    const tile = yNext * 10 + xNext;
+                                    if (!TileController.IsTileHaveChildren(tile)) {
+                                        kingArr.push(tile)
+                                    } else {
+                                        const item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                        if (item.isWhite) {
+                                            kingArr.push(tile)
+                                        }
+                                    }
+                                }
+                            }
+                            
+                            if(kingArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:kingArr
+                                }
+                                res.push(node)
+                            }
                         }
                     }
                 }
@@ -660,61 +939,74 @@ export class KingController {
 
     // return gerakan untuk piece tertentu
     static RespondKingThreaten(piece,arrThreaten,isWhite){
-        let key = piece.elementId.split('-')[0].split('')
-        
+
+        // store the path
         let res = []
+        // store the possible move of an array
+        let piecePossibleMoveArr = []
+
         // the threaten king is white
-        if(isWhite){
-            let king = GetKeyPieces('wk')
-            let threatPath = this.GetAllThreat(arrThreaten,king)
-            let possibleMove = this.GetAllPossibleMoves(isWhite)
+        let king = isWhite ? GetKeyPieces('wk') : GetKeyPieces('bk')
 
-            console.log(threatPath,possibleMove)
+        let threatPath = this.GetAllThreat(arrThreaten,king)
+        let possibleMove = this.GetAllPossibleMoves(isWhite)
+        console.log(threatPath, possibleMove)
 
-            // piece is pawn
-            if(key[1] === 'p') {
+        // no possible move
+        if (possibleMove.length === 0) return []
 
-            }
-    
-            // piece is bishop
-            if(key[1] === 'b') {
-    
-            }
-            
-            // piece is knight
-            if(key[1] === 'n') {
-    
-            }
-    
-            // piece is rook 
-            if(key[1] === 'r') {
-    
-            }
-            
-            // piece is queen 
-            if(key[1] === 'q') {
-    
-            }
+        // check king atau bukan
+        if(piece.elementId !== 'wk' && piece.elementId !== 'bk') {
+            let itemKeyObject = GetKeyOnly(piece.elementId)
+            let currentPossibleMove = possibleMove.filter(move => move.key === itemKeyObject)[0]
 
-            // piece is king 
-            if(key[1] === 'k') {
-    
-            }  
+            // exist the way
+            if(currentPossibleMove !== undefined) {
+                threatPath.forEach(threat => {
+                    for(let i=0;i<threat.arr.length-1;i++){
+                        let tile = threat.arr[i]
+                        currentPossibleMove.arr.forEach(pieceMove => {
+                            if(pieceMove === tile) {
+                                let node = {
+                                    threat: threat.key,
+                                    proctect: itemKeyObject,
+                                    tile:tile
+                                }
+                                piecePossibleMoveArr.push(node)
+                                console.log(node)
+                            }
+                        });
+                    }
+                })
+
+                // minimize threat
+                let compareWithThreatArr = []
+                threatPath.forEach(threat => {
+                    for(let i=0;i<piecePossibleMoveArr.length;i++){
+                        let move = piecePossibleMoveArr[i]
+                        if(threat.key === move.threat) {
+                            compareWithThreatArr.push(move.threat)
+                            break
+                        }
+                    }
+                })
+                console.log(piecePossibleMoveArr)
+                piecePossibleMoveArr.forEach(move => {
+                    console.log(move)
+                    res.push(move.tile)
+                })
+            }
         } 
-
-        // the threaten king is black
+        
+        // bukan king
         else {
-            let king = GetKeyPieces('bk')
-            let threatPath = this.GetAllThreat(arrThreaten,king)
-            let possibleMove = this.GetAllPossibleMoves(isWhite)
 
-            console.log(threatPath,possibleMove)
-
-            // piece is pawn
-            if(key[1] === 'p') {
-
-            }
         }
 
+
+        // either checkmate or draw
+        if(res.length === 0) return res
+
+        return res
     }
 }
