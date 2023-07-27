@@ -22,6 +22,11 @@ export class TileController {
     }
 
     static IsTileHaveChildren(tilePosition) {
+        let x = tilePosition % 10
+        let y = (tilePosition - x) / 10
+        let boundaries = x >= 1 && x <= 8 && y >= 1 && y <= 8
+        if(!boundaries) return false
+
         let tileElement = document.getElementById(tilePosition)
         let childElements = tileElement.children
         if(childElements === null) return false

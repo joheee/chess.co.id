@@ -21,8 +21,9 @@ export class Pawn extends Piece {
         // check if king is being checked
         if (KingController.CheckKingIsThreaten(this.isWhite)) {
             let arrThreaten = KingController.GetKingThreaten(this.isWhite)
-            console.log(arrThreaten)
-            return false
+            let threadLeft = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+
+            return 
         }
 
         // white validation
@@ -90,15 +91,7 @@ export class Pawn extends Piece {
             // check if king is being checked
             if (KingController.CheckKingIsThreaten(this.isWhite)) {
                 let arrThreaten = KingController.GetKingThreaten(this.isWhite)
-                
-                // action for white
-                if(this.isWhite){
-
-                }
-                // action for black
-                else {
-
-                }
+                let threadLeft = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
 
                 return 
             }
@@ -120,14 +113,15 @@ export class Pawn extends Piece {
 
                 // if at the left diagonal exist black pieces
                 let leftDiagonalTile = (y+1) * 10 + x - 1
-                if(x > 1 && x < 8 && y > 1 && y < 8 && TileController.IsTileHaveChildren(leftDiagonalTile)){
+                console.log(leftDiagonalTile)
+                if(TileController.IsTileHaveChildren(leftDiagonalTile)){
                     // if black 
                     let item = GetKeyPieces(TileController.GetChildrenElement(leftDiagonalTile).id)
                     if(!item.isWhite) Tile.HintBackground(leftDiagonalTile)
                 }
 
                 let rightDiagonalTile = (y+1) * 10 + x + 1
-                if(x > 1 && x < 8 && y > 1 && y < 8 && TileController.IsTileHaveChildren(rightDiagonalTile)){
+                if(TileController.IsTileHaveChildren(rightDiagonalTile)){
                     // if black 
                     let item = GetKeyPieces(TileController.GetChildrenElement(rightDiagonalTile).id)
                     if(!item.isWhite) Tile.HintBackground(rightDiagonalTile)
@@ -149,14 +143,14 @@ export class Pawn extends Piece {
 
                 // if at the left diagonal exist black pieces
                 let leftDiagonalTile = (y-1) * 10 + x - 1
-                if(x > 1 && y < 8 && TileController.IsTileHaveChildren(leftDiagonalTile)){
+                if(TileController.IsTileHaveChildren(leftDiagonalTile)){
                     // if white 
                     let item = GetKeyPieces(TileController.GetChildrenElement(leftDiagonalTile).id)
                     if(item.isWhite) Tile.HintBackground(leftDiagonalTile)
                 }
 
                 let rightDiagonalTile = (y-1) * 10 + x + 1
-                if(x > 1 && y < 8 && TileController.IsTileHaveChildren(rightDiagonalTile)){
+                if(TileController.IsTileHaveChildren(rightDiagonalTile)){
                     // if white 
                     let item = GetKeyPieces(TileController.GetChildrenElement(rightDiagonalTile).id)
                     if(item.isWhite) Tile.HintBackground(rightDiagonalTile)

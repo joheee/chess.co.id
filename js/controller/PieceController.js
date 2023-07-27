@@ -7,6 +7,7 @@ import { SoundController } from "./SoundController.js";
 import { TileController } from "./TileController.js";
 
 export class PieceController {
+
     static HandleCapture(id){
         let piece = GetKeyPieces(id)
         let key = piece.elementId.split('-')[0].split('')
