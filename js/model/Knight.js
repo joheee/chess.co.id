@@ -12,6 +12,33 @@ export class Knight extends Piece {
         this.MovementListener()
     }
 
+    static KnightPossibleMoves(tile, arr, isWhite){
+        let x = tile % 10
+        let y = (tile - x) / 10     
+        if(x < 1 || x > 8 || y < 1 || y > 8) return
+
+        // white 
+        if(isWhite) {
+            if(TileController.IsTileHaveChildren(tile)) {
+                let item = GetKeyPieces(TileController.GetChildrenElement(tile).id)
+                // if black
+                if(!item.isWhite) arr.push(tile)
+            } else {
+                arr.push(tile)
+            }
+        } 
+        // black
+        else {
+            if(TileController.IsTileHaveChildren(tile)) {
+                let item = GetKeyPieces(TileController.GetChildrenElement(tile).id)
+                // if white 
+                if(item.isWhite) arr.push(tile)
+            } else {
+                arr.push(tile)
+            }
+        }
+    }
+
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)

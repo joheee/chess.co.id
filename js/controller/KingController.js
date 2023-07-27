@@ -1,5 +1,6 @@
 import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyOnly, GetKeyPieces } from "../logic/Control.js";
+import { Knight } from "../model/Knight.js";
 import { Tile } from "../model/Tile.js";
 import { PathController } from "./PathController.js";
 import { PieceController } from "./PieceController.js";
@@ -265,12 +266,95 @@ export class KingController {
                         
                         // knight allies
                         if(key[1] === 'n') {
+                            let knightArr = []
 
+                            console.log(allies.piecePosition)
+                            // coordinates
+                            let TopLeftTile = (y + 2) * 10 + x-1 
+                            Knight.KnightPossibleMoves(TopLeftTile, knightArr, isWhite)
+                            let TopBottomMoves = (y + 2) * 10 + x+1  
+                            Knight.KnightPossibleMoves(TopBottomMoves, knightArr, isWhite)
+                            let LeftTopMoves = (y - 1) * 10 + x+2   
+                            Knight.KnightPossibleMoves(LeftTopMoves, knightArr, isWhite)
+                            let LeftBottomMoves = (y - 1) * 10 + x-2  
+                            Knight.KnightPossibleMoves(LeftBottomMoves, knightArr, isWhite)
+                            let RightTopMoves = (y + 1) * 10 + x+2
+                            Knight.KnightPossibleMoves(RightTopMoves, knightArr, isWhite)
+                            let RightBottomMoves = (y + 1) * 10 + x-2  
+                            Knight.KnightPossibleMoves(RightBottomMoves, knightArr, isWhite)
+                            let BottomLeftMoves = (y - 2) * 10 + x-1  
+                            Knight.KnightPossibleMoves(BottomLeftMoves, knightArr, isWhite)
+                            let BottomRightMovex = (y - 2) * 10 + x+1 
+                            Knight.KnightPossibleMoves(BottomRightMovex, knightArr, isWhite)
+
+
+                            if(knightArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:knightArr
+                                }
+                                res.push(node)
+                            }
                         }
     
                         // rook allies
                         if(key[1] === 'r') {
+                            let rookArr = []
+                            // Highlight valid tiles in upward direction
+                            for (let i = y - 1; i >= 1; i--) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) rookArr.push(tile)
+                                    break;
+                                }
+                                rookArr.push(tile)
+                            }
+                        
+                            // Highlight valid tiles in downward direction
+                            for (let i = y + 1; i <= 8; i++) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) rookArr.push(tile)
+                                    break;
+                                }
+                                Tile.HintBackground(tile);
+                                rookArr.push(tile)
 
+                            }
+                        
+                            // Highlight valid tiles in left direction
+                            for (let j = x - 1; j >= 1; j--) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) rookArr.push(tile)
+                                    break;
+                                }
+                                rookArr.push(tile)
+
+                            }
+                        
+                            // Highlight valid tiles in right direction
+                            for (let j = x + 1; j <= 8; j++) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (!item.isWhite) rookArr.push(tile)
+                                    
+                                    break;
+                                }
+                                rookArr.push(tile)
+                            }
+                            
+                            if(rookArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:rookArr
+                                }
+                                res.push(node)
+                            }
                         }
                         
                         // queen allies
@@ -401,12 +485,95 @@ export class KingController {
                         
                         // knight allies
                         if(key[1] === 'n') {
+                            let knightArr = []
 
+                            console.log(allies.piecePosition)
+                            // coordinates
+                            let TopLeftTile = (y + 2) * 10 + x-1 
+                            Knight.KnightPossibleMoves(TopLeftTile, knightArr, isWhite)
+                            let TopBottomMoves = (y + 2) * 10 + x+1  
+                            Knight.KnightPossibleMoves(TopBottomMoves, knightArr, isWhite)
+                            let LeftTopMoves = (y - 1) * 10 + x+2   
+                            Knight.KnightPossibleMoves(LeftTopMoves, knightArr, isWhite)
+                            let LeftBottomMoves = (y - 1) * 10 + x-2  
+                            Knight.KnightPossibleMoves(LeftBottomMoves, knightArr, isWhite)
+                            let RightTopMoves = (y + 1) * 10 + x+2
+                            Knight.KnightPossibleMoves(RightTopMoves, knightArr, isWhite)
+                            let RightBottomMoves = (y + 1) * 10 + x-2  
+                            Knight.KnightPossibleMoves(RightBottomMoves, knightArr, isWhite)
+                            let BottomLeftMoves = (y - 2) * 10 + x-1  
+                            Knight.KnightPossibleMoves(BottomLeftMoves, knightArr, isWhite)
+                            let BottomRightMovex = (y - 2) * 10 + x+1 
+                            Knight.KnightPossibleMoves(BottomRightMovex, knightArr, isWhite)
+
+
+                            if(knightArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:knightArr
+                                }
+                                res.push(node)
+                            }
                         }
     
                         // rook allies
                         if(key[1] === 'r') {
+                            let rookArr = []
+                            // Highlight valid tiles in upward direction
+                            for (let i = y - 1; i >= 1; i--) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) rookArr.push(tile)
+                                    break;
+                                }
+                                rookArr.push(tile)
+                            }
+                        
+                            // Highlight valid tiles in downward direction
+                            for (let i = y + 1; i <= 8; i++) {
+                                let tile = i * 10 + x;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) rookArr.push(tile)
+                                    break;
+                                }
+                                Tile.HintBackground(tile);
+                                rookArr.push(tile)
 
+                            }
+                        
+                            // Highlight valid tiles in left direction
+                            for (let j = x - 1; j >= 1; j--) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) rookArr.push(tile)
+                                    break;
+                                }
+                                rookArr.push(tile)
+
+                            }
+                        
+                            // Highlight valid tiles in right direction
+                            for (let j = x + 1; j <= 8; j++) {
+                                let tile = y * 10 + j;
+                                if (TileController.IsTileHaveChildren(tile)) {
+                                    let item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
+                                    if (item.isWhite) rookArr.push(tile)
+                                    
+                                    break;
+                                }
+                                rookArr.push(tile)
+                            }
+                            
+                            if(rookArr.length !== 0) {
+                                let node = {
+                                    key:pieceKey,
+                                    arr:rookArr
+                                }
+                                res.push(node)
+                            }
                         }
                         
                         // queen allies

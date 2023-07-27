@@ -24,7 +24,6 @@ export class Rook extends Piece {
         return PieceController.CapturePieceMechanism(this, dest)
 
     }
-
     
 
     MovementMechanism = () => {
