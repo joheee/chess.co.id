@@ -1,6 +1,7 @@
 import { Variable } from "../config/Variable.js"
 import { Pawn } from "../model/Pawn.js"
 import { Tile } from "../model/Tile.js"
+import { KingController } from "./KingController.js"
 import { PieceController } from "./PieceController.js"
 import { SoundController } from "./SoundController.js"
 
@@ -16,6 +17,17 @@ export class TileController {
                 if(tilePosition != tileId && Variable.currentElement.ValidMoves(parseInt(tilePosition))) {
                     console.log('valid tile to move')
                     this.HandlePieceMovement(elementId,tilePosition)
+
+                    // check king is threaten
+                    if(KingController.CheckKingIsThreaten(Variable.isWhiteMove)) {
+
+                        SoundController.PlaySoundCaptureOnce()
+
+                        let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
+                        const imageElement = document.getElementById(kingId)
+                        const parentElement = imageElement.closest(Variable.tileClass)
+                        parentElement.style.backgroundColor = Variable.checkTile
+                    } 
                 }
             }
         })

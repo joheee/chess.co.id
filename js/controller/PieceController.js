@@ -3,6 +3,7 @@ import { Variable } from "../config/Variable.js";
 import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyPieces } from "../logic/Control.js";
 import { Queen } from "../model/Queen.js";
+import { KingController } from "./KingController.js";
 import { SoundController } from "./SoundController.js";
 import { TileController } from "./TileController.js";
 
@@ -40,7 +41,6 @@ export class PieceController {
                     PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
                 }
             }
-            return true
         } 
         // capture item for black
         else {
@@ -52,8 +52,9 @@ export class PieceController {
                     PieceController.HandleCapture(TileController.GetChildrenElement(dest).id)
                 }
             }
-            return true
         }
+
+        return true
     }
 
     static ManipulateElement(idContainer) {

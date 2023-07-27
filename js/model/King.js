@@ -18,14 +18,17 @@ export class King extends Piece {
     ValidMoves = (dest) => {
         const [ySrc, xSrc] = Tile.GetXYTile(this.piecePosition)
         const [yDest, xDest] = Tile.GetXYTile(dest)
-
         // check if king is being checked
         if (KingController.CheckKingIsThreaten(this.isWhite)) {
             let arrThreaten = KingController.GetKingThreaten(this.isWhite)
             let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
-            responseMovement.forEach(move => {
-                if(dest !== move) return false
-            })
+
+            if(responseMovement.length === 0) return false
+            for (let i = 0; i < responseMovement.length; i++) {
+                let move = responseMovement[i];
+                if (dest === move) return PieceController.CapturePieceMechanism(this, dest)
+            }
+            return false;
         }
 
         const deltaY = Math.abs(yDest - ySrc)
@@ -100,6 +103,9 @@ export class King extends Piece {
             if (KingController.CheckKingIsThreaten(this.isWhite)) {
                 let arrThreaten = KingController.GetKingThreaten(this.isWhite)
                 let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+
+                if(responseMovement.length === 0) return 
+
                 responseMovement.forEach(move => {
                     Tile.HintBackground(move)
                 })

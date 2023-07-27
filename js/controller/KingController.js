@@ -1,3 +1,4 @@
+import { Variable } from "../config/Variable.js";
 import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyOnly, GetKeyPieces } from "../logic/Control.js";
 import { Knight } from "../model/Knight.js";
@@ -132,6 +133,8 @@ export class KingController {
     }
 
     static CheckKingIsThreaten(isWhite){
+        
+        console.log('turinnn ', Variable.isWhiteMove, isWhite)
         if (!isWhite && this.IsKingBlackCheck(GetKeyPieces('bk').piecePosition)) {
             console.log('King black is in check');
             return true;
@@ -935,7 +938,7 @@ export class KingController {
 
         return res
     }
-    
+     
 
     // return gerakan untuk piece tertentu
     static RespondKingThreaten(piece,arrThreaten,isWhite){
@@ -970,7 +973,7 @@ export class KingController {
                                 let node = {
                                     threat: threat.key,
                                     proctect: itemKeyObject,
-                                    tile:tile
+                                    tile:pieceMove
                                 }
                                 piecePossibleMoveArr.push(node)
                                 console.log(node)
@@ -990,17 +993,33 @@ export class KingController {
                         }
                     }
                 })
-                console.log(piecePossibleMoveArr)
                 piecePossibleMoveArr.forEach(move => {
-                    console.log(move)
                     res.push(move.tile)
                 })
             }
         } 
         
-        // bukan king
+        // si king
         else {
+            let itemKeyObject = GetKeyOnly(piece.elementId)
+            let currentPossibleMove = possibleMove.filter(move => move.key === itemKeyObject)[0]
 
+            // exist the way
+            if(currentPossibleMove !== undefined) {
+                threatPath.forEach(threat => {
+                    for(let i=0;i<threat.arr.length-1;i++){
+                        let tile = threat.arr[i]
+                        currentPossibleMove.arr.forEach(pieceMove => {
+                            console.log(pieceMove,tile)
+                            if(pieceMove === tile) {
+                                currentPossibleMove.arr = currentPossibleMove.arr.filter(move => move !== pieceMove)
+                            }
+                        });
+                    }
+                })
+
+                res = currentPossibleMove.arr
+            }
         }
 
 

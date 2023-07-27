@@ -21,10 +21,14 @@ export class Rook extends Piece {
         if (KingController.CheckKingIsThreaten(this.isWhite)) {
             let arrThreaten = KingController.GetKingThreaten(this.isWhite)
             let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
-            responseMovement.forEach(move => {
-                if(dest !== move) return false
-            })
-        }
+
+            if(responseMovement.length === 0) return false
+            for (let i = 0; i < responseMovement.length; i++) {
+                let move = responseMovement[i];
+                if (dest === move) return PieceController.CapturePieceMechanism(this, dest)
+            }
+            return false;
+        }   
 
         if(!PieceController.IsPathClear(ySrc, xSrc, yDest, xDest)) return false
 
@@ -45,6 +49,9 @@ export class Rook extends Piece {
             if (KingController.CheckKingIsThreaten(this.isWhite)) {
                 let arrThreaten = KingController.GetKingThreaten(this.isWhite)
                 let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
+
+                if(responseMovement.length === 0) return
+
                 responseMovement.forEach(move => {
                     Tile.HintBackground(move)
                 })

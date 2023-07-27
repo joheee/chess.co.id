@@ -7,6 +7,7 @@ export class Variable {
     static secondTile = '#eeeed2'
     static validPathTile = '#ffff00'
     static clickedTile = '#fff35fbb'
+    static checkTile = '#FF8989bb'
     static tileClass = '.tile-height-width'
 
     // STATE OF ELEMENT
