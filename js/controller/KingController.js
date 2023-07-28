@@ -1,5 +1,5 @@
 import { Variable } from "../config/Variable.js";
-import { BlackPieces, WhitePieces } from "../index.js";
+import { BlackClock, BlackPieces, WhiteClock, WhitePieces } from "../index.js";
 import { GetKeyOnly, GetKeyPieces } from "../logic/Control.js";
 import { Knight } from "../model/Knight.js";
 import { Tile } from "../model/Tile.js";
@@ -153,7 +153,7 @@ export class KingController {
 
     // return gerakan untuk piece tertentu
     static GetAllPossibleMoves(isWhite){
-        
+        console.log(isWhite)
         let res = []
 
         // the threaten king is white
@@ -195,7 +195,9 @@ export class KingController {
                             if(TileController.IsTileHaveChildren(rightDiagonalTile)){
                                 // if black 
                                 let item = GetKeyPieces(TileController.GetChildrenElement(rightDiagonalTile).id)
+                                console.log(TileController.IsTileHaveChildren(rightDiagonalTile), TileController.GetChildrenElement(rightDiagonalTile), rightDiagonalTile)
                                 if(!item.isWhite) pawnArr.push(rightDiagonalTile)
+                                
                             }
                             if(pawnArr.length !== 0) {
                                 let node = {
@@ -1030,20 +1032,18 @@ export class KingController {
     }
 
     static HandleKingStatus() {
+        console.log(this.IsCheckMate(Variable.isWhiteMove))
         if(this.CheckKingIsThreaten(Variable.isWhiteMove)) {
-
             // continue the game
             
             SoundController.PlaySoundCaptureOnce()
             
             // checkmate 
-            console.log(this.IsCheckMate(Variable.isWhiteMove))
             if(this.IsCheckMate(Variable.isWhiteMove)) {
                 console.log('skakmat woe')
                 Navigation.WinningPopUp(Variable.isWhiteMove ? 'Black Won' : 'White Won', true) 
                 return
             }
-
 
             let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
             const imageElement = document.getElementById(kingId)
@@ -1065,12 +1065,20 @@ export class KingController {
     static IsCheckMate(isWhite){
 
         let king = isWhite ? GetKeyPieces('wk') : GetKeyPieces('bk')
-        
+
         let arrThreaten = KingController.GetKingThreaten(isWhite)
         
         let threatPath = this.GetAllThreat(arrThreaten,king)
         let possibleMove = this.GetAllPossibleMoves(isWhite)
-        let res = null
+        let enemyMove = this.GetAllPossibleMoves(!isWhite)
+        // let enemyPossibleMove = this.GetAllPossibleMoves(!isWhite)
+        let res = 1
+
+        for(let i=0;i<possibleMove.length;i++){
+            let move = possibleMove[i]
+            let piece = isWhite ? WhitePieces[move.key] : BlackPieces[move.key]
+            console.log(piece, move.arr)
+        }
 
         for(let i=0;i<possibleMove.length;i++){
             let move = possibleMove[i].arr
@@ -1087,7 +1095,12 @@ export class KingController {
             })
         }
 
+        console.log(possibleMove, enemyMove)
+
         if(res !== null) return false
+        // checkmate is confirmed
+        WhiteClock.stopCountdown()
+        BlackClock.stopCountdown()
 
         return true
     }

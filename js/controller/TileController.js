@@ -46,9 +46,14 @@ export class TileController {
     }
     
     static GetChildrenElement(tilePosition) {
-        let tileElement = document.getElementById(tilePosition)
-        return tileElement.firstElementChild
+        let tileElement = document.getElementById(tilePosition);
+      
+        // Use querySelector to get the first child element that does not have the class "hint-movement"
+        let childElement = tileElement.querySelector(`:not(.hint-movement)`);
+      
+        return childElement;
     }
+      
 
     static HandleKingCastle(elementId, tilePosition) {
         let piece = document.getElementById(elementId)

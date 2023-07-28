@@ -2,7 +2,6 @@ import { Board } from "./component/Board.js"
 import { IntializeBoardColor } from "./component/InitColor.js"
 import { Player } from "./component/Player.js"
 import { GetElement } from "./config/Element.js"
-import { Index } from "./logic/Control.js"
 import { Time } from "./logic/Time.js"
 import { Bishop } from "./model/Bishop.js"
 import { King } from "./model/King.js"
@@ -10,9 +9,7 @@ import { Knight } from "./model/Knight.js"
 import { Pawn } from "./model/Pawn.js"
 import { Queen } from "./model/Queen.js"
 import { Rook } from "./model/Rook.js"
-import { LocalStorage } from "./navigation/LocalStorage.js"
 import { Navigation } from "./navigation/Navigation.js"
-import { Variable } from './config/Variable.js'
 
 // INITIALIZE BOARD AND PIECES
 const chessBoard = GetElement('id', 'chess-board')
@@ -22,9 +19,6 @@ boardTiles.forEach(row => {
         chessBoard.appendChild(tile)
     })
 })
-
-// INITIALIZE NAVIGATION
-const navigation = new Navigation()
 
 // INITIALIZE OBJECT
 let Tiles = IntializeBoardColor()
@@ -70,6 +64,10 @@ export const BlackPieces = {
     BlackQueen_1 : new Queen(false, 84, false, 'bq-1'),
     BlackKing : new King(false, 85, false, 'bk'),
 }
+
+// INITIALIZE NAVIGATION
+const navigation = new Navigation()
+
 
 // INITIALIZE CLOCK
 export const WhiteClock = new Time('white-clock')
