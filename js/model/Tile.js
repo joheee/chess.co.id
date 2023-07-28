@@ -1,5 +1,5 @@
 import { Variable } from "../config/Variable.js"
-import { TileController } from "../controller/TileController.js"
+import { KingController } from "../controller/KingController.js"
 
 export class Tile {
     constructor(tilePosition) {
@@ -34,10 +34,10 @@ export class Tile {
                 tile.DefaultBackground()
             }
         }
+        KingController.HandleKingStatus()
     }
 
     static ResetHintBackground(){
-        console.log('here')
         const hintElements = document.querySelectorAll('.hint-movement');
         hintElements.forEach((element) => {
         element.remove();

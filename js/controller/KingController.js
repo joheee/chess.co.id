@@ -5,9 +5,40 @@ import { Knight } from "../model/Knight.js";
 import { Tile } from "../model/Tile.js";
 import { PathController } from "./PathController.js";
 import { PieceController } from "./PieceController.js";
+import { SoundController } from "./SoundController.js";
 import { TileController } from "./TileController.js";
 
 export class KingController {
+
+    static HandleKingStatus() {
+        if(this.CheckKingIsThreaten(Variable.isWhiteMove)) {
+
+            SoundController.PlaySoundCaptureOnce()
+
+            // checkmate white
+            if(Variable.isWhiteCheckMate) {
+                console.log('skakmat putih woe')
+            }
+            
+            // checkmate black
+            if(Variable.isBlackCheckMate) {
+                console.log('skakmat item woe')
+            }
+
+            let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
+            const imageElement = document.getElementById(kingId)
+            const parentElement = imageElement.closest(Variable.tileClass)
+            parentElement.style.backgroundColor = Variable.checkTile
+
+        } else {
+            let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
+            let piece = GetKeyPieces(kingId)
+            let parent = document.getElementById(piece.piecePosition)
+            let x = piece.piecePosition % 10
+            let y = (piece.piecePosition - x) / 10
+            parent.style.backgroundColor = Tile.CalculateBackground([x,y])
+        }
+    }
 
     static KingBlackCheck(kingPosition){
         let arr = []
@@ -134,9 +165,9 @@ export class KingController {
 
     static CheckKingIsThreaten(isWhite){
         
-        console.log('turinnn ', Variable.isWhiteMove, isWhite)
         if (!isWhite && this.IsKingBlackCheck(GetKeyPieces('bk').piecePosition)) {
             console.log('King black is in check');
+            
             return true;
         }
         
@@ -629,7 +660,6 @@ export class KingController {
                         if(key[1] === 'n') {
                             let knightArr = []
 
-                            console.log(allies.piecePosition)
                             // coordinates
                             let TopLeftTile = (y + 2) * 10 + x-1 
                             Knight.KnightPossibleMoves(TopLeftTile, knightArr, isWhite)
@@ -952,7 +982,6 @@ export class KingController {
 
         let threatPath = this.GetAllThreat(arrThreaten,king)
         let possibleMove = this.GetAllPossibleMoves(isWhite)
-        console.log(threatPath, possibleMove)
 
         // no possible move
         if (possibleMove.length === 0) return []
@@ -975,7 +1004,6 @@ export class KingController {
                                     tile:pieceMove
                                 }
                                 piecePossibleMoveArr.push(node)
-                                console.log(node)
                             }
                         });
                     }
@@ -1022,6 +1050,7 @@ export class KingController {
             }
         }
 
+        console.log(threatPath, possibleMove, res)
 
         // either checkmate or draw
         if(res.length === 0) return res

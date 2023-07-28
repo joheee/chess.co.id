@@ -14,31 +14,44 @@ export class Piece {
     }
 
     ClickedPiece = () => {
-        const imageElement = document.getElementById(this.elementId)
-        const parentElement = imageElement.closest(Variable.tileClass)
 
+        const imageElement = document.getElementById(this.elementId);
+        const parentElement = imageElement.closest(Variable.tileClass);
+    
         // Check if it's the correct color's turn to move
-        if (this.isWhite !== Variable.isWhiteMove) return false
-
-        // handle click
-        if (!this.isClicked && !Variable.isClickedPiece) {
+        if (this.isWhite !== Variable.isWhiteMove) return false;
+    
+        // Handle click for the current piece
+        if (!this.isClicked) {
+            // If there's a currently selected piece, turn it off
+            if (Variable.currentElement) {
+                Tile.ResetBackground();
+                Tile.ResetHintBackground();
+                const prevElement = document.getElementById(Variable.currentElement.elementId);
+                const prevParentElement = prevElement.closest(Variable.tileClass);
+                prevParentElement.style.backgroundColor = Tile.CalculateBackground(prevParentElement.id);
+                Variable.currentElement.isClicked = false;
+            }
+    
+            Tile.ResetBackground();
+            Tile.ResetHintBackground();
             parentElement.style.backgroundColor = Variable.clickedTile;
             this.isClicked = true;
-
+        
             Variable.isClickedPiece = true;
             Variable.currentElement = this;
             return true;
-        } else if (this.isClicked && Variable.isClickedPiece) {
-            parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id);
-            this.isClicked = false;
-
-            Variable.isClickedPiece = false;
-            Variable.currentElement = null;
-            Tile.ResetBackground();
-            Tile.ResetHintBackground();
         }
-        return false
-    }
+    
+        // If the same piece is clicked again, turn it off
+        parentElement.style.backgroundColor = Tile.CalculateBackground(parentElement.id);
+        this.isClicked = false;
+        Variable.isClickedPiece = false;
+        Variable.currentElement = null;
+        Tile.ResetBackground();
+        Tile.ResetHintBackground();
+        return false;
+    };
 
     MovementListener = () => {
         document.getElementById(this.elementId).addEventListener('click', this.MovementMechanism)

@@ -75,6 +75,12 @@ position: fixed;
 
 .image-winning-container {
     width: 6rem;
+    border-radius: 1rem;
+}
+
+.border-winning {
+    background-color: #769656;
+    padding: .3rem;
 }
 
 .image-play-container {
@@ -87,6 +93,7 @@ position: fixed;
     align-items: center;
     gap: 1rem;
 }
+
 
 #new-modal {
     display: none; 

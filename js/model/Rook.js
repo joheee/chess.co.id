@@ -30,7 +30,6 @@ export class Rook extends Piece {
             return false;
         }   
         
-        console.log('is valid 2', dest, !PieceController.IsPathClear(ySrc, xSrc, yDest, xDest),this)
         if(!PieceController.IsPathClear(ySrc, xSrc, yDest, xDest)) return false
 
         this.isFirstMove = true

@@ -106,7 +106,6 @@ export class Pawn extends Piece {
                 return 
             }
 
-            console.log('masuk siniii')
 
             // white pawn
             if(this.isWhite) {
@@ -125,7 +124,6 @@ export class Pawn extends Piece {
 
                 // if at the left diagonal exist black pieces
                 let leftDiagonalTile = (y+1) * 10 + x - 1
-                console.log(leftDiagonalTile)
                 if(TileController.IsTileHaveChildren(leftDiagonalTile)){
                     // if black 
                     let item = GetKeyPieces(TileController.GetChildrenElement(leftDiagonalTile).id)

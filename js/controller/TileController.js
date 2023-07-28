@@ -18,32 +18,9 @@ export class TileController {
                     console.log('valid tile to move')
                     this.HandlePieceMovement(elementId,tilePosition)
 
-                    // check king is threaten
-                    if(KingController.CheckKingIsThreaten(Variable.isWhiteMove)) {
-
-                        SoundController.PlaySoundCaptureOnce()
-
-                        // checkmate white
-                        if(Variable.isWhiteCheckMate) {
-                            console.log('skakmat putih woe')
-                        }
-                        
-                        // checkmate black
-                        if(Variable.isBlackCheckMate) {
-                            console.log('skakmat item woe')
-                        }
-
-
-                        let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
-                        const imageElement = document.getElementById(kingId)
-                        const parentElement = imageElement.closest(Variable.tileClass)
-                        parentElement.style.backgroundColor = Variable.checkTile
-                    } 
-                    
-                    // RESET THE STATE OF VARIABLE
-                    Variable.ResetState()
                 }
             }
+            
         })
     }
 
@@ -73,15 +50,9 @@ export class TileController {
         return tileElement.firstElementChild
     }
 
-    static HandlePieceMovement(elementId, tilePosition) {
+    static HandleKingCastle(elementId, tilePosition) {
         let piece = document.getElementById(elementId)
         if(piece !== null) {
-
-            // RETURN BACK THE TILE COLOR
-            Tile.ResetBackground()
-
-            // RESET HINT TILE COLOR
-            Tile.ResetHintBackground()
             
             // MOVE THE PIECE
             let targetTile = document.getElementById(tilePosition)
@@ -99,13 +70,61 @@ export class TileController {
             if((yDest === 8 || yDest === 1) && Variable.currentElement instanceof Pawn) {
                 PieceController.PromoteToQueen(Variable.currentElement, tilePosition)
             }   
-
             
             // continue the game
             Variable.IsGameContinue()
 
             // PLAY THE HELLA SOUND
             SoundController.PlaySoundMoveOnce()
+
+            // HANDLE CHECKMATES
+            KingController.HandleKingStatus()
+
+            // RETURN BACK THE TILE COLOR
+            Tile.ResetBackground()
+
+            // RESET HINT TILE COLOR
+            Tile.ResetHintBackground()
+        }
+    }
+
+    static HandlePieceMovement(elementId, tilePosition) {
+        let piece = document.getElementById(elementId)
+        if(piece !== null) {
+            
+            // MOVE THE PIECE
+            let targetTile = document.getElementById(tilePosition)
+            piece.parentNode.removeChild(piece)
+            targetTile.appendChild(piece)
+            
+            
+            // UPDATE THE ELEMENT STATE
+            Variable.currentElement.isClicked = false
+            Variable.currentElement.piecePosition = tilePosition
+            
+            // pawn promote straight to queen
+            const [yDest, xDest] = Tile.GetXYTile(tilePosition)
+            
+            if((yDest === 8 || yDest === 1) && Variable.currentElement instanceof Pawn) {
+                PieceController.PromoteToQueen(Variable.currentElement, tilePosition)
+            }   
+
+            // RESET THE STATE OF VARIABLE
+            Variable.ResetState()
+            
+            // continue the game
+            Variable.IsGameContinue()
+            
+            // PLAY THE HELLA SOUND
+            SoundController.PlaySoundMoveOnce()
+
+            // HANDLE CHECKMATES
+            KingController.HandleKingStatus()
+
+            // RETURN BACK THE TILE COLOR
+            Tile.ResetBackground()
+            // RESET HINT TILE COLOR
+            Tile.ResetHintBackground()
         }
     }
 }

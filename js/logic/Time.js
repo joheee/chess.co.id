@@ -1,4 +1,5 @@
 import { LocalStorage } from "../navigation/LocalStorage.js"
+import { Navigation } from "../navigation/Navigation.js"
 
 export class Time {
     constructor(id) {
@@ -41,6 +42,7 @@ export class Time {
                 } else {
                     clearInterval(this.countdownInterval);
                     this.countdownActive = false;
+                    this.id !== 'white-clock' ? Navigation.WinningPopUp('White Won', true) : Navigation.WinningPopUp('Black Won',false)
                 }
             }, 1000);
         }

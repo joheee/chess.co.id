@@ -43,6 +43,7 @@ export class Bishop extends Piece {
             
             // check if king is being checked
             if (KingController.CheckKingIsThreaten(this.isWhite)) {
+
                 let arrThreaten = KingController.GetKingThreaten(this.isWhite)
                 let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
     

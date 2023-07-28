@@ -35,7 +35,6 @@ export class Navigation {
 
         if(local.GetTime() === null || local.GetTime() === 0) {
             Variable.timePlayed = 5
-            console.log(Variable.timePlayed)
             local.SetTime(Variable.timePlayed)
         }
 
@@ -209,9 +208,19 @@ export class Navigation {
         }) 
     }
 
-    static WinningPopUp(text){
+    static WinningPopUp(text, isWhite){
         let modal = document.getElementById('end-modal')
         modal.style.display = 'flex'
+
+        if(isWhite) {
+            const whiteWinningImage = document.getElementById("white-winning")
+            whiteWinningImage.classList.add("border-winning")
+            console.log(whiteWinningImage)
+        } else {
+            const whiteWinningImage = document.getElementById("black-winning")
+            whiteWinningImage.classList.add("border-winning")
+            console.log(whiteWinningImage)
+        }
 
         let textElement = document.getElementById('winning-information-text')
         textElement.textContent = text

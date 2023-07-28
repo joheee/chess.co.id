@@ -106,7 +106,6 @@ export class PieceController {
             Object.assign(WhitePieces, newQueen);
 
             // REMOVE PAWN ELEMENT
-            console.log(pawn.elementId)
             document.getElementById(pawn.elementId).remove()
 
         } else {
@@ -124,7 +123,6 @@ export class PieceController {
             Object.assign(BlackPieces, newQueen);
 
             // REMOVE PAWN ELEMENT
-            console.log(pawn.elementId)
             document.getElementById(pawn.elementId).remove()
         }
     }
