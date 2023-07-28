@@ -18,7 +18,7 @@ export class Piece {
         const parentElement = imageElement.closest(Variable.tileClass)
 
         // Check if it's the correct color's turn to move
-        // if (this.isWhite !== Variable.isWhiteMove) return false
+        if (this.isWhite !== Variable.isWhiteMove) return false
 
         // handle click
         if (!this.isClicked && !Variable.isClickedPiece) {
