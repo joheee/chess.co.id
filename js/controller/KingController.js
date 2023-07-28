@@ -1104,25 +1104,6 @@ export class KingController {
 
         if(res !== null) return false
         
-        let kingMove = []
-        let enemyListMove = []
-        // check the king's path is prohibited for enemy pawn
-        possibleMove.forEach(p => {
-            p.arr.forEach(m => {
-                if(p.key === kingKey) {
-                    kingMove.push(m)
-                }
-            })
-        })
-        enemyMove.forEach(e => {
-            e.arr.forEach(em => {
-                enemyListMove.push(em)
-            })
-        })
-
-        let remainKingMove = res.filter((move) => !enemyListMove.includes(move))
-
-        if(remainKingMove.length === 0) return false
         // checkmate is confirmed
         WhiteClock.stopCountdown()
         BlackClock.stopCountdown()
