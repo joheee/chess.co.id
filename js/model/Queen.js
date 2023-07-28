@@ -1,3 +1,4 @@
+import { Variable } from "../config/Variable.js";
 import { KingController } from "../controller/KingController.js";
 import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
@@ -48,10 +49,11 @@ export class Queen extends Piece {
                 let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
 
                 if(responseMovement.length === 0) return 
-
-                responseMovement.forEach(move => {
-                    Tile.HintBackground(move)
-                })
+                
+                for (let i = 0; i < responseMovement.length; i++) {
+                    let move = responseMovement[i];
+                    Tile.HintBackground(move)        
+                }
                 return 
             }
 
@@ -268,7 +270,6 @@ export class Queen extends Piece {
                 }
             }
         } else {
-            console.log('This piece is not selected')
         }
     }
 }

@@ -49,15 +49,13 @@ export class King extends Piece {
                         let kingNew = tile - 1
                         let rookNew = tile - 2
                         if(kingNew === yDest * 10 + xDest) {
+                            Variable.currentElement = this
                             TileController.HandleKingCastle(this.elementId, kingNew)
-                            // item.isClicked = true
-                            console.log(this,item)
+                            Variable.currentElement = item
                             TileController.HandleKingCastle(item.elementId, rookNew)
-                            this.piecePosition = kingNew
-                            item.piecePosition = rookNew
                             Variable.ResetState()
+                            break
                         }
-                        break
                     }
                 }
             }
@@ -75,13 +73,13 @@ export class King extends Piece {
                         let kingNew = tile + 1
                         let rookNew = tile + 2
                         if(kingNew === yDest * 10 + xDest - 1) {
+                            Variable.currentElement = this
                             TileController.HandleKingCastle(this.elementId, kingNew + 1)
+                            Variable.currentElement = item
                             TileController.HandleKingCastle(item.elementId, rookNew + 1)
-                            this.piecePosition = kingNew + 1
-                            item.piecePosition = rookNew + 1
                             Variable.ResetState()
+                            break
                         }
-                        break
                     }
                 }
             }
@@ -110,9 +108,10 @@ export class King extends Piece {
 
                 if(responseMovement.length === 0) return 
 
-                responseMovement.forEach(move => {
+                for (let i = 0; i < responseMovement.length; i++) {
+                    let move = responseMovement[i];
                     Tile.HintBackground(move)
-                })
+                }
                 return 
             }
 
@@ -204,7 +203,6 @@ export class King extends Piece {
               
 
         } else {
-            console.log('This piece is not selected')
         }
     }
 }

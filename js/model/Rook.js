@@ -52,9 +52,10 @@ export class Rook extends Piece {
 
                 if(responseMovement.length === 0) return
 
-                responseMovement.forEach(move => {
+                for (let i = 0; i < responseMovement.length; i++) {
+                    let move = responseMovement[i];
                     Tile.HintBackground(move)
-                })
+                }
                 return 
             }
             
@@ -167,7 +168,7 @@ export class Rook extends Piece {
             }
               
         } else {
-            console.log('This piece is not selected')
+            ('This piece is not selected')
         }
     }
 }

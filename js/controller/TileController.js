@@ -70,9 +70,6 @@ export class TileController {
             if((yDest === 8 || yDest === 1) && Variable.currentElement instanceof Pawn) {
                 PieceController.PromoteToQueen(Variable.currentElement, tilePosition)
             }   
-            
-            // continue the game
-            Variable.IsGameContinue()
 
             // PLAY THE HELLA SOUND
             SoundController.PlaySoundMoveOnce()
@@ -108,18 +105,15 @@ export class TileController {
             if((yDest === 8 || yDest === 1) && Variable.currentElement instanceof Pawn) {
                 PieceController.PromoteToQueen(Variable.currentElement, tilePosition)
             }   
-
-            // RESET THE STATE OF VARIABLE
-            Variable.ResetState()
             
-            // continue the game
-            Variable.IsGameContinue()
-            
-            // PLAY THE HELLA SOUND
-            SoundController.PlaySoundMoveOnce()
-
             // HANDLE CHECKMATES
             KingController.HandleKingStatus()
+            
+            // RESET THE STATE OF VARIABLE
+            Variable.ResetState()
+                        
+            // PLAY THE HELLA SOUND
+            SoundController.PlaySoundMoveOnce()
 
             // RETURN BACK THE TILE COLOR
             Tile.ResetBackground()

@@ -100,9 +100,10 @@ export class Pawn extends Piece {
 
                 if(responseMovement.length === 0) return
 
-                responseMovement.forEach(move => {
+                for (let i = 0; i < responseMovement.length; i++) {
+                    let move = responseMovement[i];
                     Tile.HintBackground(move)
-                })
+                }
                 return 
             }
 
@@ -167,7 +168,6 @@ export class Pawn extends Piece {
                 }
             }
         } else {
-            console.log('This piece is not selected')
         }
     }
 }

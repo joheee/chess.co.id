@@ -106,14 +106,15 @@ export class Navigation {
         let logout = document.getElementById('logout-button')
         
         let tobBar = document.getElementById('top-bar')        
+        tobBar.style.gridTemplateColumns = "auto";
 
         if(user === undefined) {
             logout.style.display = 'none'
-            tobBar.style.gridTemplateColumns = "auto auto auto";
+            // tobBar.style.gridTemplateColumns = "auto auto auto";
         }else {
             login.style.display = 'none'
             register.style.display = 'none'
-            tobBar.style.gridTemplateColumns = "auto auto";
+            // tobBar.style.gridTemplateColumns = "auto auto";
         }
     }
 
@@ -145,7 +146,6 @@ export class Navigation {
 
             // all validation passed
             let local = new LocalStorage()
-            console.log(local.GetAuthUser(email,password))
             local.StoreSessionUser(email)
             location.reload()
         }) 
@@ -165,8 +165,6 @@ export class Navigation {
             let email = document.getElementById('regist-username').value
             let password = document.getElementById('regist-password').value
             let conPass = document.getElementById('regist-confirm-password').value
-            
-            console.log(email,password, conPass)
 
             if(email === '' || password === '' || conPass === '') {
                 this.ShowError('all field must be filled!')
@@ -215,11 +213,9 @@ export class Navigation {
         if(isWhite) {
             const whiteWinningImage = document.getElementById("white-winning")
             whiteWinningImage.classList.add("border-winning")
-            console.log(whiteWinningImage)
         } else {
             const whiteWinningImage = document.getElementById("black-winning")
             whiteWinningImage.classList.add("border-winning")
-            console.log(whiteWinningImage)
         }
 
         let textElement = document.getElementById('winning-information-text')

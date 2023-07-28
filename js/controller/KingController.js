@@ -3,42 +3,13 @@ import { BlackPieces, WhitePieces } from "../index.js";
 import { GetKeyOnly, GetKeyPieces } from "../logic/Control.js";
 import { Knight } from "../model/Knight.js";
 import { Tile } from "../model/Tile.js";
+import { Navigation } from "../navigation/Navigation.js";
 import { PathController } from "./PathController.js";
 import { PieceController } from "./PieceController.js";
 import { SoundController } from "./SoundController.js";
 import { TileController } from "./TileController.js";
 
 export class KingController {
-
-    static HandleKingStatus() {
-        if(this.CheckKingIsThreaten(Variable.isWhiteMove)) {
-
-            SoundController.PlaySoundCaptureOnce()
-
-            // checkmate white
-            if(Variable.isWhiteCheckMate) {
-                console.log('skakmat putih woe')
-            }
-            
-            // checkmate black
-            if(Variable.isBlackCheckMate) {
-                console.log('skakmat item woe')
-            }
-
-            let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
-            const imageElement = document.getElementById(kingId)
-            const parentElement = imageElement.closest(Variable.tileClass)
-            parentElement.style.backgroundColor = Variable.checkTile
-
-        } else {
-            let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
-            let piece = GetKeyPieces(kingId)
-            let parent = document.getElementById(piece.piecePosition)
-            let x = piece.piecePosition % 10
-            let y = (piece.piecePosition - x) / 10
-            parent.style.backgroundColor = Tile.CalculateBackground([x,y])
-        }
-    }
 
     static KingBlackCheck(kingPosition){
         let arr = []
@@ -1037,7 +1008,6 @@ export class KingController {
                     for(let i=0;i<threat.arr.length-1;i++){
                         let tile = threat.arr[i]
                         currentPossibleMove.arr.forEach(pieceMove => {
-                            console.log(pieceMove,tile)
                             if(pieceMove === tile) {
                                 if(i !== 0) currentPossibleMove.arr = currentPossibleMove.arr.filter(move => move !== pieceMove)
                             }
@@ -1050,7 +1020,6 @@ export class KingController {
             }
         }
 
-        console.log(threatPath, possibleMove, res)
 
         // either checkmate or draw
         if(res.length === 0) return res
@@ -1060,6 +1029,66 @@ export class KingController {
         return res
     }
 
-    // SLATEMATE
+    static HandleKingStatus() {
+        if(this.CheckKingIsThreaten(Variable.isWhiteMove)) {
 
+            // continue the game
+            
+            SoundController.PlaySoundCaptureOnce()
+            
+            // checkmate 
+            console.log(this.IsCheckMate(Variable.isWhiteMove))
+            if(this.IsCheckMate(Variable.isWhiteMove)) {
+                console.log('skakmat woe')
+                Navigation.WinningPopUp(Variable.isWhiteMove ? 'Black Won' : 'White Won', true) 
+                return
+            }
+
+
+            let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
+            const imageElement = document.getElementById(kingId)
+            const parentElement = imageElement.closest(Variable.tileClass)
+            parentElement.style.backgroundColor = Variable.checkTile
+
+        } else {
+            let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
+            let piece = GetKeyPieces(kingId)
+            let parent = document.getElementById(piece.piecePosition)
+            let x = piece.piecePosition % 10
+            let y = (piece.piecePosition - x) / 10
+            parent.style.backgroundColor = Tile.CalculateBackground([x,y])
+        }
+    }
+
+
+    // CHECKMATE
+    static IsCheckMate(isWhite){
+
+        let king = isWhite ? GetKeyPieces('wk') : GetKeyPieces('bk')
+        
+        let arrThreaten = KingController.GetKingThreaten(isWhite)
+        
+        let threatPath = this.GetAllThreat(arrThreaten,king)
+        let possibleMove = this.GetAllPossibleMoves(isWhite)
+        let res = null
+
+        for(let i=0;i<possibleMove.length;i++){
+            let move = possibleMove[i].arr
+            move.forEach(m => {
+                threatPath.forEach(t => {
+                    t.arr.forEach(p => {
+                        if(m === p) {
+                            if(possibleMove[i].key !== 'WhiteKing' && possibleMove[i].key !== 'BlackKing') {
+                                res = 1
+                            }
+                        }
+                    })
+                })
+            })
+        }
+
+        if(res !== null) return false
+
+        return true
+    }
 }
