@@ -48,7 +48,6 @@ export class Tile {
         const hintDiv = document.createElement('div')
         hintDiv.setAttribute('class', 'hint-movement')
         const tile = document.getElementById(id)
-        console.log(tile)
         tile.appendChild(hintDiv)
     }
 

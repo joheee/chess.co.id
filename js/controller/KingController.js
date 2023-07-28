@@ -1031,6 +1031,15 @@ export class KingController {
     }
 
     static HandleKingStatus() {
+        let whiteKing = GetKeyPieces('wk')
+        let blackKing = GetKeyPieces('bk')
+
+        console.log(whiteKing,blackKing)
+        if(whiteKing.isCaptured || blackKing.isCaptured) {
+            Navigation.WinningPopUp(Variable.isWhiteMove ? 'Black Won' : 'White Won', true) 
+            Navigation.WinningPopUp(Variable.isWhiteMove ? 'Black Won' : 'White Won', true) 
+        }
+
         if(this.CheckKingIsThreaten(Variable.isWhiteMove)) {
             // continue the game
             
@@ -1064,6 +1073,9 @@ export class KingController {
     static IsCheckMate(isWhite){
 
         let king = isWhite ? GetKeyPieces('wk') : GetKeyPieces('bk')
+
+        if(king.isCaptured === true) return false
+
         let kingKey = isWhite ? 'WhiteKing' : 'BlackKing'
         
         let arrThreaten = KingController.GetKingThreaten(isWhite)
@@ -1091,7 +1103,6 @@ export class KingController {
         }
 
         if(res !== null) return false
-
         
         let kingMove = []
         let enemyListMove = []
@@ -1109,14 +1120,9 @@ export class KingController {
             })
         })
 
-        let kingRemainMove = []
-        enemyListMove.forEach(em => {
-            kingMove.forEach(k => {
-                if(em !== k) kingRemainMove.push(k)
-            })
-        })
+        let remainKingMove = res.filter((move) => !enemyListMove.includes(move))
 
-        if(kingRemainMove.length === 0) return false
+        if(remainKingMove.length === 0) return false
         // checkmate is confirmed
         WhiteClock.stopCountdown()
         BlackClock.stopCountdown()
