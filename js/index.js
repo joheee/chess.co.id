@@ -76,4 +76,3 @@ export const WhiteClock = new Time('white-clock')
 export const BlackClock = new Time('black-clock')
 WhiteClock.DisplayClock()
 BlackClock.DisplayClock()
-

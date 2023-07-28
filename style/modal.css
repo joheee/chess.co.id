@@ -63,10 +63,39 @@ position: fixed;
     gap: 1rem;
 }
 
+.winning-information-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    font-weight: bold;
+    font-size: 2rem;
+}
+
+.image-winning-container {
+    width: 6rem;
+}
+
+.image-play-container {
+    width: 4rem;
+}
+
+.player-winning-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
 #new-modal {
     display: none; 
 }
 
 #time-dropdown-container {
+    display: none;
+}
+
+#end-modal {
     display: none;
 }

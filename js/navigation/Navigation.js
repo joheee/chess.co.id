@@ -208,4 +208,21 @@ export class Navigation {
             location.reload()
         }) 
     }
+
+    static WinningPopUp(text){
+        let modal = document.getElementById('end-modal')
+        modal.style.display = 'flex'
+
+        let textElement = document.getElementById('winning-information-text')
+        textElement.textContent = text
+        document.getElementById('exit-end-button').addEventListener('click', () => {
+            modal.style.display = 'none'
+            location.reload()            
+        })
+
+        document.getElementById('end').addEventListener('click', () => {
+            modal.style.display = 'none'
+            location.reload()            
+        })
+    }
 }
