@@ -23,11 +23,23 @@ export class TileController {
 
                         SoundController.PlaySoundCaptureOnce()
 
+                        // checkmate white
+                        if(Variable.isWhiteCheckMate) {
+                            console.log('skakmat putih woe')
+                        }
+                        
+                        // checkmate black
+                        if(Variable.isBlackCheckMate) {
+                            console.log('skakmat item woe')
+                        }
+
+
                         let kingId = Variable.isWhiteMove ? 'wk' : 'bk'
                         const imageElement = document.getElementById(kingId)
                         const parentElement = imageElement.closest(Variable.tileClass)
                         parentElement.style.backgroundColor = Variable.checkTile
                     } 
+                    
                 }
             }
         })
@@ -87,6 +99,9 @@ export class TileController {
 
             // RESET THE STATE OF VARIABLE
             Variable.ResetState()
+            
+            // continue the game
+            Variable.IsGameContinue()
 
             // PLAY THE HELLA SOUND
             SoundController.PlaySoundMoveOnce()

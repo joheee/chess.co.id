@@ -24,8 +24,8 @@ export class Variable {
     static totalBlackQueen = 1
 
     // BOOLEAN FOR CHECKMATES CONFIRMATION
-    static isBlackCheckMate = false
-    static isWhiteCheckMate = false
+    static isBlackCheckMate = true
+    static isWhiteCheckMate = true
 
     static ResetState(){
         this.isClickedPiece = false
@@ -34,6 +34,14 @@ export class Variable {
         this.parentElement = null
         this.isWhiteMove = !this.isWhiteMove
 
+        this.isBlackCheckMate = true
+        this.isWhiteCheckMate = true
+        
         GameStateController.DefineClock()
+    }
+    
+    static IsGameContinue(){
+        this.isBlackCheckMate = false
+        this.isWhiteCheckMate = false
     }
 }

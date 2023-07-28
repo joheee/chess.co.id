@@ -939,7 +939,6 @@ export class KingController {
         return res
     }
      
-
     // return gerakan untuk piece tertentu
     static RespondKingThreaten(piece,arrThreaten,isWhite){
 
@@ -1012,13 +1011,14 @@ export class KingController {
                         currentPossibleMove.arr.forEach(pieceMove => {
                             console.log(pieceMove,tile)
                             if(pieceMove === tile) {
-                                currentPossibleMove.arr = currentPossibleMove.arr.filter(move => move !== pieceMove)
+                                if(i !== 0) currentPossibleMove.arr = currentPossibleMove.arr.filter(move => move !== pieceMove)
                             }
                         });
                     }
                 })
 
                 res = currentPossibleMove.arr
+
             }
         }
 
@@ -1026,6 +1026,11 @@ export class KingController {
         // either checkmate or draw
         if(res.length === 0) return res
 
+        // checking the list of move is giving possibility to discover check, or guarded threat
+
         return res
     }
+
+    // SLATEMATE
+
 }
