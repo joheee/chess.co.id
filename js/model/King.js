@@ -50,8 +50,10 @@ export class King extends Piece {
                         let rookNew = tile - 2
                         if(kingNew === yDest * 10 + xDest) {
                             TileController.HandlePieceMovement(this.elementId, kingNew)
-                            item.ClickedPiece()
                             TileController.HandlePieceMovement(item.elementId, rookNew)
+                
+                            this.piecePosition = kingNew
+                            item.piecePosition = rookNew
                             Variable.ResetState()
                         }
                         break
@@ -73,8 +75,10 @@ export class King extends Piece {
                         let rookNew = tile + 2
                         if(kingNew === yDest * 10 + xDest - 1) {
                             TileController.HandlePieceMovement(this.elementId, kingNew + 1)
-                            item.ClickedPiece()
                             TileController.HandlePieceMovement(item.elementId, rookNew + 1)
+                            
+                            this.piecePosition = kingNew + 1
+                            item.piecePosition = rookNew + 1
                             Variable.ResetState()
                         }
                         break

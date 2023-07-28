@@ -40,6 +40,8 @@ export class TileController {
                         parentElement.style.backgroundColor = Variable.checkTile
                     } 
                     
+                    // RESET THE STATE OF VARIABLE
+                    Variable.ResetState()
                 }
             }
         })
@@ -86,6 +88,7 @@ export class TileController {
             piece.parentNode.removeChild(piece)
             targetTile.appendChild(piece)
             
+
             // UPDATE THE ELEMENT STATE
             Variable.currentElement.isClicked = false
             Variable.currentElement.piecePosition = tilePosition
@@ -97,8 +100,6 @@ export class TileController {
                 PieceController.PromoteToQueen(Variable.currentElement, tilePosition)
             }   
 
-            // RESET THE STATE OF VARIABLE
-            Variable.ResetState()
             
             // continue the game
             Variable.IsGameContinue()

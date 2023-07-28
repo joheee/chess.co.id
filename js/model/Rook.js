@@ -21,7 +21,7 @@ export class Rook extends Piece {
         if (KingController.CheckKingIsThreaten(this.isWhite)) {
             let arrThreaten = KingController.GetKingThreaten(this.isWhite)
             let responseMovement = KingController.RespondKingThreaten(this,arrThreaten,this.isWhite)
-
+            
             if(responseMovement.length === 0) return false
             for (let i = 0; i < responseMovement.length; i++) {
                 let move = responseMovement[i];
@@ -29,7 +29,8 @@ export class Rook extends Piece {
             }
             return false;
         }   
-
+        
+        console.log('is valid 2', dest, !PieceController.IsPathClear(ySrc, xSrc, yDest, xDest),this)
         if(!PieceController.IsPathClear(ySrc, xSrc, yDest, xDest)) return false
 
         this.isFirstMove = true
