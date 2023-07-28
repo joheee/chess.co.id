@@ -955,7 +955,8 @@ export class KingController {
 
         let threatPath = this.GetAllThreat(arrThreaten,king)
         let possibleMove = this.GetAllPossibleMoves(isWhite)
-
+        let enemyMove = this.GetAllPossibleMoves(!isWhite)
+        
         // no possible move
         if (possibleMove.length === 0) return []
 
@@ -1006,22 +1007,20 @@ export class KingController {
 
             // exist the way
             if(currentPossibleMove !== undefined) {
-                threatPath.forEach(threat => {
-                    for(let i=0;i<threat.arr.length-1;i++){
-                        let tile = threat.arr[i]
-                        currentPossibleMove.arr.forEach(pieceMove => {
-                            if(pieceMove === tile) {
-                                if(i !== 0) currentPossibleMove.arr = currentPossibleMove.arr.filter(move => move !== pieceMove)
-                            }
-                        });
-                    }
-                })
-
                 res = currentPossibleMove.arr
-
+                let enemyListMove = []
+                
+                enemyMove.forEach(e => {
+                    e.arr.forEach(em => {
+                        enemyListMove.push(em)
+                    })
+                })
+                
+                let remainKingMove = res.filter((move) => !enemyListMove.includes(move))
+                console.log(currentPossibleMove,remainKingMove)
+                res = remainKingMove
             }
         }
-
 
         // either checkmate or draw
         if(res.length === 0) return res
@@ -1032,13 +1031,13 @@ export class KingController {
     }
 
     static HandleKingStatus() {
-        console.log(this.IsCheckMate(Variable.isWhiteMove))
         if(this.CheckKingIsThreaten(Variable.isWhiteMove)) {
             // continue the game
             
             SoundController.PlaySoundCaptureOnce()
             
             // checkmate 
+            console.log(this.IsCheckMate(Variable.isWhiteMove))
             if(this.IsCheckMate(Variable.isWhiteMove)) {
                 console.log('skakmat woe')
                 Navigation.WinningPopUp(Variable.isWhiteMove ? 'Black Won' : 'White Won', true) 
@@ -1065,21 +1064,17 @@ export class KingController {
     static IsCheckMate(isWhite){
 
         let king = isWhite ? GetKeyPieces('wk') : GetKeyPieces('bk')
-
+        let kingKey = isWhite ? 'WhiteKing' : 'BlackKing'
+        
         let arrThreaten = KingController.GetKingThreaten(isWhite)
         
         let threatPath = this.GetAllThreat(arrThreaten,king)
         let possibleMove = this.GetAllPossibleMoves(isWhite)
         let enemyMove = this.GetAllPossibleMoves(!isWhite)
         // let enemyPossibleMove = this.GetAllPossibleMoves(!isWhite)
-        let res = 1
+        let res = null
 
-        for(let i=0;i<possibleMove.length;i++){
-            let move = possibleMove[i]
-            let piece = isWhite ? WhitePieces[move.key] : BlackPieces[move.key]
-            console.log(piece, move.arr)
-        }
-
+        // other piece can protect or kill the threat
         for(let i=0;i<possibleMove.length;i++){
             let move = possibleMove[i].arr
             move.forEach(m => {
@@ -1095,9 +1090,33 @@ export class KingController {
             })
         }
 
-        console.log(possibleMove, enemyMove)
-
         if(res !== null) return false
+
+        
+        let kingMove = []
+        let enemyListMove = []
+        // check the king's path is prohibited for enemy pawn
+        possibleMove.forEach(p => {
+            p.arr.forEach(m => {
+                if(p.key === kingKey) {
+                    kingMove.push(m)
+                }
+            })
+        })
+        enemyMove.forEach(e => {
+            e.arr.forEach(em => {
+                enemyListMove.push(em)
+            })
+        })
+
+        let kingRemainMove = []
+        enemyListMove.forEach(em => {
+            kingMove.forEach(k => {
+                if(em !== k) kingRemainMove.push(k)
+            })
+        })
+
+        if(kingRemainMove.length === 0) return false
         // checkmate is confirmed
         WhiteClock.stopCountdown()
         BlackClock.stopCountdown()

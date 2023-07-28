@@ -2,7 +2,7 @@ import { Variable } from "../config/Variable.js";
 import { KingController } from "../controller/KingController.js";
 import { PieceController } from "../controller/PieceController.js";
 import { TileController } from "../controller/TileController.js";
-import { GetKeyPieces } from "../logic/Control.js";
+import { GetKeyOnly, GetKeyPieces } from "../logic/Control.js";
 import { Piece } from "./Piece.js";
 import { Rook } from "./Rook.js";
 import { Tile } from "./Tile.js";
@@ -86,14 +86,38 @@ export class King extends Piece {
         }
 
         // Check if the destination is within one square distance
-        if (deltaY > 1 || deltaX > 1) return false
-
-        // The move is neither horizontal, vertical, nor diagonal
-        if (deltaY !== deltaX && ySrc !== yDest && xSrc !== xDest) return false
+        if (!this.KingValidMovement().includes(dest)) return false
         
         this.isFirstMove = true
         // capture piece for white
         return PieceController.CapturePieceMechanism(this, dest)
+    }
+
+    KingValidMovement = () => {
+        let itemKeyObject = GetKeyOnly(this.elementId)
+        let possibleMove = KingController.GetAllPossibleMoves(this.isWhite)
+        let enemyMove = KingController.GetAllPossibleMoves(!this.isWhite)
+        let currentPossibleMove = possibleMove.filter(move => move.key === itemKeyObject)[0]
+
+        let res = []
+
+        // exist the way
+        if(currentPossibleMove !== undefined) {
+            res = currentPossibleMove.arr
+            let enemyListMove = []
+            
+            enemyMove.forEach(e => {
+                e.arr.forEach(em => {
+                    enemyListMove.push(em)
+                })
+            })
+            
+            let remainKingMove = res.filter((move) => !enemyListMove.includes(move))
+            console.log(currentPossibleMove,remainKingMove)
+            res = remainKingMove
+        }
+
+        return res
     }
 
     MovementMechanism = () => {
@@ -150,57 +174,10 @@ export class King extends Piece {
                     }
                 }
             }
-
-            // white king
-            if (this.isWhite) {
-                const directions = [
-                  [-1, -1], [-1, 0], [-1, 1],
-                  [0, -1], /*KING*/ [0, 1],
-                  [1, -1], [1, 0], [1, 1]
-                ];
-              
-                for (const [dy, dx] of directions) {
-                    const yNext = y + dy;
-                    const xNext = x + dx;
-                    if (yNext >= 1 && yNext <= 8 && xNext >= 1 && xNext <= 8) {
-                        const tile = yNext * 10 + xNext;
-                        if (!TileController.IsTileHaveChildren(tile)) {
-                            Tile.HintBackground(tile);
-                        } else {
-                            const item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
-                            if (!item.isWhite) {
-                                Tile.HintBackground(tile);
-                            }
-                        }
-                    }
-                }
-            }
-
-            // black king
-            else {
-                const directions = [
-                  [-1, -1], [-1, 0], [-1, 1],
-                  [0, -1], /*KING*/ [0, 1],
-                  [1, -1], [1, 0], [1, 1]
-                ];
-              
-                for (const [dy, dx] of directions) {
-                    const yNext = y + dy;
-                    const xNext = x + dx;
-                    if (yNext >= 1 && yNext <= 8 && xNext >= 1 && xNext <= 8) {
-                        const tile = yNext * 10 + xNext;
-                        if (!TileController.IsTileHaveChildren(tile)) {
-                            Tile.HintBackground(tile);
-                        } else {
-                            const item = GetKeyPieces(TileController.GetChildrenElement(tile).id);
-                            if (item.isWhite) {
-                                Tile.HintBackground(tile);
-                            }
-                        }
-                    }
-                }
-            }
-              
+            this.KingValidMovement().forEach(i => {
+                console.log(i)
+                Tile.HintBackground(i)
+            })
 
         } else {
         }
